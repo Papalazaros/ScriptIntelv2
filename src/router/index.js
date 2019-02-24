@@ -1,0 +1,63 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '@/components/Home';
+import Admin from '@/components/Admin';
+import Unauthorized from '@/components/Unauthorized';
+import Auth from '@okta/okta-vue';
+
+Vue.use(Auth, {
+	issuer: 'https://dev-866259.oktapreview.com/oauth2/default',
+	client_id: '0oajeuzoieJ9CjpSh0h7',
+	redirect_uri: window.location.origin + '/implicit/callback',
+	scope: 'openid profile email'
+});
+
+Vue.use(Router);
+
+let router = new Router({
+	mode: 'history',
+	routes: [
+		{
+			path: '/',
+			name: 'Home',
+			component: Home
+		},
+		{
+			path: '/admin',
+			name: 'Admin',
+			component: Admin,
+			meta: {
+				adminOnly: true
+			}
+		},
+		{
+			path: '/unauthorized',
+			name: 'Unauthorized',
+			component: Unauthorized
+		},		
+		{
+			path: '/implicit/callback',
+			component: Auth.handleCallback()
+		}				
+	]
+});
+
+const checkRoute = async (to, from, next) => {
+	Vue.prototype.$auth.authRedirectGuard();
+
+	if (to.meta.adminOnly) {
+		var user = await Vue.prototype.$auth.getUser();
+		if (!user || !user.isAdmin) {
+			next('/unauthorized');			
+		}
+		else {
+			next();
+		}
+	}
+	else {
+		next();
+	}	
+};
+
+router.beforeEach(checkRoute);
+export default router;
