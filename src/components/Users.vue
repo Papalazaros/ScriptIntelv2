@@ -37,10 +37,10 @@ export default {
     },
     methods: {
 		editItem(item) {			
-
+            console.log(item);
 		},
 		deleteItem(item) {
-			
+			console.log(item);
 		}        
     },
 	computed: {

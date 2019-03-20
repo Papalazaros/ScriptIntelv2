@@ -15,11 +15,7 @@
 					Year
 				</v-btn>
 			</v-btn-toggle>
-		</v-layout>
-		<v-layout row justify-center>
-			<p># of Scripts Fills</p>
-			<p>Gross Profit per Script Fill</p>
-		</v-layout>		
+		</v-layout>	
 		<v-layout row align-center justify-center>
 			<v-flex xs12>
 				<v-sheet height="500" min-height="500">
@@ -30,7 +26,16 @@
 						color="primary"
 						v-model="now"
 						:show-month-on-first=false
-					></v-calendar>
+						hide-header
+					>
+					<template v-slot:day="{ present, past, date }">
+						<v-layout fill-height justify-center align-start>
+							<v-icon>local_pharmacy</v-icon>
+							<v-icon>monetization_on</v-icon>
+							<v-icon>attach_money</v-icon>
+						</v-layout>
+					</template>
+					</v-calendar>
 					<v-flex class="text-xs-center">
 						<v-btn class="my-3" @click="$refs.calendar.prev()">
 							<v-icon dark left>

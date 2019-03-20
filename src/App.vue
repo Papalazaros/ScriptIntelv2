@@ -32,7 +32,7 @@
           <router-link to="/"><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="green" @click.prevent="login" v-if="!activeUser"><span class="mr-2">Login</span></v-btn>
+      <v-btn flat color="green" @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
       <v-menu v-if="activeUser" >        
         <v-btn class="profile-btn" fab slot="activator"><v-icon>person</v-icon></v-btn>
         <v-list class="navigation">
@@ -84,7 +84,7 @@ export default {
         },
         {
           title: "Pharmacy Comparison",
-          to: "/pharmacyanalytics2",
+          to: "",
           subHeadings: []
         },        
         {
@@ -199,7 +199,10 @@ export default {
 .v-list__tile {
   padding: 0px 0px;
 }
-.v-list__tile.active {
-  text-decoration: none!important;
+.v-list__tile--active .main-heading-row {
+  text-decoration: none;
+  padding: 0px 15px;
+  color: #1C2B32;
+  background-color: #E1E4E3!important;
 }
 </style>

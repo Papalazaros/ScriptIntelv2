@@ -17,8 +17,7 @@ Vue.use(Router);
 
 let router = new Router({
 	mode: 'history',
-	routes: [
-		{
+	routes: [{
 			path: '/',
 			name: 'Home',
 			component: Home
@@ -40,7 +39,7 @@ let router = new Router({
 				requiresAuth: true,
 				adminOnly: true
 			}
-		},		
+		},
 		{
 			path: '/unauthorized',
 			name: 'Unauthorized',
@@ -49,7 +48,7 @@ let router = new Router({
 		{
 			path: '/implicit/callback',
 			component: Auth.handleCallback()
-		}				
+		}
 	]
 });
 
@@ -59,15 +58,13 @@ const checkRoute = async (to, from, next) => {
 	if (to.meta.adminOnly) {
 		var user = await Vue.prototype.$auth.getUser();
 		if (!user || !user.isAdmin) {
-			next('/unauthorized');			
-		}
-		else {
+			next('/unauthorized');
+		} else {
 			next();
 		}
-	}
-	else {
+	} else {
 		next();
-	}	
+	}
 };
 
 router.beforeEach(checkRoute);
