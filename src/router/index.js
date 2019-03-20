@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
 import Admin from '@/components/Admin';
+import PharmacyAnalytics from '@/components/PharmacyAnalytics';
 import Unauthorized from '@/components/Unauthorized';
 import Auth from '@okta/okta-vue';
 
@@ -27,14 +28,24 @@ let router = new Router({
 			name: 'Admin',
 			component: Admin,
 			meta: {
+				requiresAuth: true,
 				adminOnly: true
 			}
 		},
 		{
+			path: '/pharmacyanalytics',
+			name: 'PharmacyAnalytics',
+			component: PharmacyAnalytics,
+			meta: {
+				requiresAuth: true,
+				adminOnly: true
+			}
+		},		
+		{
 			path: '/unauthorized',
 			name: 'Unauthorized',
 			component: Unauthorized
-		},		
+		},
 		{
 			path: '/implicit/callback',
 			component: Auth.handleCallback()

@@ -1,4 +1,5 @@
 <template>
+<v-layout justify-center align-center>
   <div>
       <p><b>HTTP Error 403 - Unauthorized</b></p>
       <p>Sorry, you do not have the authorization required to view this page.</p>
@@ -7,11 +8,11 @@
       <br>
       <v-btn class="return-button" to="/">Return to Home</v-btn>
   </div>
+</v-layout>
 </template>
 
 <script>
 export default {
-  name: 'Unauthorized'
 }
 </script>
 
