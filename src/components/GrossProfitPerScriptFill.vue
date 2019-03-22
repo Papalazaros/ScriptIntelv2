@@ -1,0 +1,87 @@
+<script>
+import { Line } from "vue-chartjs"
+import moment from 'moment';
+
+export default {
+	extends: Line,
+	mounted() {
+		this.renderChart(this.datacollection, this.options)
+	},
+	data () {
+		return {
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							min: 0,
+							fontSize: 18,
+						}
+					}],
+					xAxes: [{
+						ticks: {
+							fontSize: 18
+						}
+					}]
+				},
+				legend: {
+					display: true,
+					labels: {
+						fontSize: 18
+					},
+					position: "bottom"		
+				},
+				plugins: {
+					filler: {
+						propagate: true
+					}
+				},
+				responsive: true,
+				maintainAspectRatio: false
+			}
+		}
+	},
+	computed: {
+		datacollection() {
+			var labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Dec"]
+			var datasets = []
+			var randomColor = require('randomcolor');
+			var colorList = []
+			var scriptCount = 2
+
+			for (var i = 0; i < scriptCount; i++) {
+				var accentColor = randomColor({luminosity: 'dark', format: 'rgba', alpha: 0.2})
+				var color = accentColor.replace("0.2", "1.0")
+				colorList.push(accentColor)
+				colorList.push(color)
+			}
+
+			datasets.push({
+				label: "Script 1",
+				data: [0, 1, 2, 3, 1, 2, 6, 12, 8, 5, 3, 11],
+				pointHoverBackgroundColor: colorList[0],
+				pointBackgroundColor: colorList[1],
+				borderColor: colorList[1],
+				backgroundColor: colorList[0],
+				borderWidth: 2,
+				pointRadius: 5,
+			})
+
+			datasets.push({
+				label: "Script 2",
+				data: [0, 3, 5, 3, 7, 5, 6, 7, 12, 9, 10, 11],
+				pointHoverBackgroundColor: colorList[2],
+				pointBackgroundColor: colorList[3],
+				borderColor: colorList[3],
+				backgroundColor: colorList[2],
+				borderWidth: 2,
+				pointRadius: 5,
+			})			
+
+			return {labels: labels, datasets: datasets}
+		}
+	}
+}
+</script>
+
+<style>
+</style>

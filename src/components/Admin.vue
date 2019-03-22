@@ -1,5 +1,5 @@
 <template>
-  <v-tabs :centered=true :grow=true color="#1C2B32" dark slider-color="#E1E4E3">
+  <v-tabs centered grow color="#1C2B32" dark slider-color="#E1E4E3">
     <v-tab ripple>Users</v-tab>
       <v-tab-item>
         <v-card flat><Users /></v-card>

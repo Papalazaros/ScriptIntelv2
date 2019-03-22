@@ -26,7 +26,7 @@
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar app absolute clipped-left>
+    <v-toolbar app clipped-left>
       <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer" color="#E1E4E3"></v-toolbar-side-icon>
         <v-toolbar-title class="ml-3 mr-5">
           <router-link to="/"><span>ScriptIntel</span></router-link>
@@ -179,9 +179,6 @@ export default {
   border-top: solid 1px #E1E4E3;
   border-bottom: solid 1px #E1E4E3;
 }
-.content .container, .v-sheet {
-  background-color: #FAFAF0!important;
-}
 .main-heading {
   font-size: 16px;
 }
@@ -202,7 +199,7 @@ export default {
 .v-list__tile--active .main-heading-row {
   text-decoration: none;
   padding: 0px 15px;
-  color: #1C2B32;
-  background-color: #E1E4E3!important;
+  color: #E1E4E3;
+  border-left: solid 10px #E1E4E3;
 }
 </style>
