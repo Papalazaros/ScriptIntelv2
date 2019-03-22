@@ -20,13 +20,14 @@
 			<v-flex xs6 class="graph-sheet">
 				<h4># of Scripts Fills</h4>
 				<v-sheet height="400" width="100%">
+					<NumberOfScriptFills/>					
 				</v-sheet>
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
 				<h4>Gross Profit per Script Fill</h4>
 				<v-sheet height="400" width="100%">
-					<GrossProfitPerScriptFill/>
-				</v-sheet>			
+					<GrossProfitPerScriptFill/>					
+				</v-sheet>
 			</v-flex>
 		</v-layout>
 		<v-layout row align-center justify-center>
@@ -41,19 +42,29 @@
 						:show-month-on-first=false
 					>
 					<template v-slot:day="{ present, past, date }">
-						<v-layout align-center justify-space-around row fill-height>
+						<v-layout align-center justify-space-around row>
 							<v-flex class="text-xs-center">
-								<v-icon>local_pharmacy</v-icon>
-								<h3>10</h3>								
+								<u><v-icon>account_box</v-icon></u>
+								<br></br>
+								<h4>10</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<v-icon>monetization_on</v-icon>
-								<h3>$150</h3>								
+								<h4>x</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<v-icon>attach_money</v-icon>
-								<h3>$15</h3>								
+								<u><v-icon>monetization_on</v-icon></u>
+								<br></br>
+								<h4>$15</h4>
 							</v-flex>
+							<v-flex class="text-xs-center">
+								<h4>=</h4>
+							</v-flex>							
+							<v-flex class="text-xs-center">
+								<h4>$150</h4>
+							</v-flex>
+							<v-flex class="text-xs-center">
+								<v-icon color="red">keyboard_arrow_up</v-icon>
+							</v-flex>							
 						</v-layout>
 					</template>
 					</v-calendar>
@@ -84,10 +95,12 @@
 <script>
 import moment from 'moment';
 import GrossProfitPerScriptFill from './GrossProfitPerScriptFill'
+import NumberOfScriptFills from './NumberOfScriptFills'
 
 export default {
 	components: {
-		GrossProfitPerScriptFill
+		GrossProfitPerScriptFill,
+		NumberOfScriptFills
 	},	
 	data () {
 		return {

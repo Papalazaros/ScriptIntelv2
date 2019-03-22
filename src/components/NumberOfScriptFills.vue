@@ -1,9 +1,9 @@
 <script>
-import { Line } from "vue-chartjs"
+import { Bar } from "vue-chartjs"
 import moment from 'moment';
 
 export default {
-	extends: Line,
+	extends: Bar,
 	mounted() {
 		this.renderChart(this.datacollection, this.options)
 	},
@@ -75,7 +75,31 @@ export default {
 				backgroundColor: colorList[3],
 				borderWidth: 2,
 				pointRadius: 5,
-			})			
+			})
+
+			datasets.push({
+				label: "Script 1",
+				data: [0, 20, 15, 13, 17, 15, 6, 7, 12, 19, 10, 11],
+				pointHoverBackgroundColor: colorList[0],
+				pointBackgroundColor: colorList[0],
+				borderColor: colorList[0],
+				backgroundColor: colorList[1],
+				borderWidth: 2,
+				pointRadius: 5,
+				type: 'line'
+			})
+
+			datasets.push({
+				label: "Script 2",
+				data: [0, 10, 20, 23, 11, 12, 26, 12, 18, 15, 23, 11],
+				pointHoverBackgroundColor: colorList[2],
+				pointBackgroundColor: colorList[2],
+				borderColor: colorList[2],
+				backgroundColor: colorList[3],
+				borderWidth: 2,
+				pointRadius: 5,
+				type: 'line'
+			})
 
 			return {labels: labels, datasets: datasets}
 		}
