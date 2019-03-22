@@ -17,14 +17,14 @@
 			</v-btn-toggle>
 		</v-layout>
 		<v-layout row justify-center align-center class="text-xs-center graph-layout">
-			<v-flex xs6 class="graph-sheet">
-				<h4># of Scripts Fills</h4>
+			<v-flex xs6 class="graph-sheet mr-2">
+				<h2># of Scripts Fills</h2>
 				<v-sheet height="400" width="100%">
-					<NumberOfScriptFills/>					
+					<NumberOfScriptFills/>
 				</v-sheet>
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
-				<h4>Gross Profit per Script Fill</h4>
+				<h2>Gross Profit per Script Fill</h2>
 				<v-sheet height="400" width="100%">
 					<GrossProfitPerScriptFill/>					
 				</v-sheet>
@@ -42,9 +42,9 @@
 						:show-month-on-first=false
 					>
 					<template v-slot:day="{ present, past, date }">
-						<v-layout align-center justify-space-around row>
+						<v-layout>
 							<v-flex class="text-xs-center">
-								<u><v-icon>account_box</v-icon></u>
+								<u><v-icon color="black">account_box</v-icon></u>
 								<br></br>
 								<h4>10</h4>
 							</v-flex>
@@ -52,7 +52,7 @@
 								<h4>x</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<u><v-icon>monetization_on</v-icon></u>
+								<u><v-icon color="success">monetization_on</v-icon></u>
 								<br></br>
 								<h4>$15</h4>
 							</v-flex>
@@ -63,7 +63,7 @@
 								<h4>$150</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<v-icon color="red">keyboard_arrow_up</v-icon>
+								<v-icon color="red">keyboard_arrow_down</v-icon>
 							</v-flex>							
 						</v-layout>
 					</template>

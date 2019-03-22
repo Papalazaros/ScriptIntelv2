@@ -27,14 +27,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app clipped-left>
-      <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer" color="#E1E4E3"><v-icon>menu</v-icon></v-toolbar-side-icon>
-        <v-toolbar-title class="ml-3 mr-5">
+      <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer"><v-icon color="#E1E4E3">menu</v-icon></v-toolbar-side-icon>
+        <v-toolbar-title class="ml-3 mr-5 title-text">
           <router-link to="/"><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn flat color="green" @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
       <v-menu v-if="activeUser" >        
-        <v-btn class="profile-btn" fab slot="activator"><v-icon>person</v-icon></v-btn>
+        <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="#E1E4E3">person</v-icon></v-btn>
         <v-list class="navigation">
           <v-layout column justify-center align-center>
             <v-list-tile v-for="item in user_menu" :to="item.to" :key="item.title">
@@ -57,11 +57,7 @@
       </v-menu>
     </v-toolbar>
     <v-content>
-      <v-container fluid fill-height class="content">
-        <v-layout justify-center>
-          <router-view></router-view>
-        </v-layout>
-      </v-container>      
+      <router-view ></router-view>
     </v-content>
   </v-app>
 </template>
@@ -164,9 +160,8 @@ export default {
   color: #E1E4E3!important;
 }
 .profile-btn {
-  background-color: #E1E4E3!important;
-  width: 35.99px;
-  height: 35.99px;
+  width: 50px;
+  height: 50px;
 }
 .navigation {
   color: #E1E4E3!important;
@@ -186,7 +181,7 @@ export default {
   margin: 0px 0px 0px 10px;
   font-style: italic;
 }
-.v-toolbar-title title, span, a {
+.title-text a {
   text-decoration: none;
   color: #E1E4E3;
 }
