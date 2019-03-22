@@ -51,17 +51,17 @@ export default {
 			for (var i = 0; i < scriptCount; i++) {
 				var accentColor = randomColor({luminosity: 'dark', format: 'rgba', alpha: 0.2})
 				var color = accentColor.replace("0.2", "1.0")
-				colorList.push(accentColor)
 				colorList.push(color)
+				colorList.push(accentColor)				
 			}
 
 			datasets.push({
 				label: "Script 1",
 				data: [0, 1, 2, 3, 1, 2, 6, 12, 8, 5, 3, 11],
 				pointHoverBackgroundColor: colorList[0],
-				pointBackgroundColor: colorList[1],
-				borderColor: colorList[1],
-				backgroundColor: colorList[0],
+				pointBackgroundColor: colorList[0],
+				borderColor: colorList[0],
+				backgroundColor: colorList[1],
 				borderWidth: 2,
 				pointRadius: 5,
 			})
@@ -70,9 +70,9 @@ export default {
 				label: "Script 2",
 				data: [0, 3, 5, 3, 7, 5, 6, 7, 12, 9, 10, 11],
 				pointHoverBackgroundColor: colorList[2],
-				pointBackgroundColor: colorList[3],
-				borderColor: colorList[3],
-				backgroundColor: colorList[2],
+				pointBackgroundColor: colorList[2],
+				borderColor: colorList[2],
+				backgroundColor: colorList[3],
 				borderWidth: 2,
 				pointRadius: 5,
 			})			
