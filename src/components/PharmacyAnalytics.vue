@@ -10,17 +10,17 @@
               <v-tab-item>
                 <v-card flat><ProfitLossAnalytics /></v-card>
               </v-tab-item>
-            <v-tab ripple >Active Scripts</v-tab>
+            <v-tab ripple>Active Scripts</v-tab>
               <v-tab-item>
                 <v-card flat><ActiveScripts /></v-card>
               </v-tab-item>
             <v-tab ripple >Preferred Scripts</v-tab>
               <v-tab-item>
                 <v-card flat></v-card>
-              </v-tab-item>      
+              </v-tab-item>
           </v-tabs>
         </v-layout>
-    </v-container>  
+    </v-container>
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
     Analytics,
     ActiveScripts,
     ProfitLossAnalytics
-  }      
+  }
 }
 </script>
 <style scoped>

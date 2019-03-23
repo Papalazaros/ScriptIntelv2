@@ -20,7 +20,7 @@
 			<v-flex xs10 class="graph-sheet mr-2">
 				<h2>% of Script Fills by Profit and Loss</h2>
 				<v-sheet height="400" width="100%">
-					<ScriptFillsByProfit ref="form"/>				
+					<ScriptFillsByProfit ref="chart"/>				
 				</v-sheet>
 			</v-flex>
 			<v-flex xs2 justify-center class="graph-sheet text-xs-center">
@@ -75,6 +75,9 @@ export default {
 	components: {
 		ScriptFillsByProfit
 	},
+	mounted() {
+		this.$refs.chart.render();
+    },
 	data () {
 		return {
 			selectedTimeframe: null,
