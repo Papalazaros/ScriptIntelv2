@@ -4,7 +4,7 @@ import { Line } from "vue-chartjs"
 export default {
 	extends: Line,
 	mounted() {
-		this.renderChart(this.datacollection, this.options)
+		this.renderChart(this.datacollection, this.options)	
 	},
 	data () {
 		return {

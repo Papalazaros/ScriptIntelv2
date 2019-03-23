@@ -64,7 +64,7 @@ export default {
 
 <style scoped>
 .subheading {
-    color: #1C2B32!important;
+    color: black!important;
 }
 .actions {
 	padding: 0px 0px 0px 0px!important;
@@ -74,7 +74,7 @@ export default {
   background-color: b!important;
 }
 .table-layout {
-	border: 1px solid #1C2B32;
+	border: 1px solid black;
     padding: 5px 5px!important;
 }
 </style>

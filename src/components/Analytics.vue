@@ -1,6 +1,6 @@
 <template>
 	<v-container fluid>
-		<v-layout row justify-end>
+		<v-layout row align-center justify-center>
 			<v-btn-toggle v-model="selectedTimeframe" mandatory class="date-picker">
 				<v-btn flat>
 					Day
@@ -20,13 +20,14 @@
 			<v-flex xs6 class="graph-sheet mr-2">
 				<h2># of Scripts Fills</h2>
 				<v-sheet height="400" width="100%">
-					<NumberOfScriptFills/>
+					<NumberOfScriptFills style="position: relative; height:40vh; width:100%"/>
 				</v-sheet>
+				
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
 				<h2>Gross Profit per Script Fill</h2>
 				<v-sheet height="400" width="100%">
-					<GrossProfitPerScriptFill/>					
+					<GrossProfitPerScriptFill style="position: relative; height:40vh; width:100%"/>					
 				</v-sheet>
 			</v-flex>
 		</v-layout>
@@ -101,7 +102,7 @@ export default {
 	components: {
 		GrossProfitPerScriptFill,
 		NumberOfScriptFills
-	},	
+	},
 	data () {
 		return {
 			selectedTimeframe: null,
@@ -128,11 +129,11 @@ export default {
 	padding: 0px 0px;
 }
 .graph-sheet {
-	border: 1px solid #1C2B32;
-	padding: 5px 5px;
+	border: 1px solid black;
+	padding: 10px 10px;
 }
 .calendar-layout {
-	border: 1px solid #1C2B32;
+	border: 1px solid black;
 	padding: 5px 5px;
 }
 .graph-layout {
@@ -140,5 +141,6 @@ export default {
 }
 .date-picker {
 	margin: 10px 0px 0px 0px;
+	border: 1px solid black;
 }
 </style>

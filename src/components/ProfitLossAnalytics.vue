@@ -1,6 +1,6 @@
 <template>
 	<v-container fluid>
-		<v-layout row justify-end>
+		<v-layout row align-center justify-center>
 			<v-btn-toggle v-model="selectedTimeframe" mandatory class="date-picker">
 				<v-btn flat>
 					Day
@@ -17,23 +17,21 @@
 			</v-btn-toggle>
 		</v-layout>
 		<v-layout row justify-center align-center class="text-xs-center graph-layout">
-			<v-flex xs10 class="graph-sheet mr-2">
+			<v-flex xs12 class="graph-sheet">
 				<h2>% of Script Fills by Profit and Loss</h2>
-				<v-sheet height="400" width="100%">
-					<ScriptFillsByProfit ref="chart"/>				
-				</v-sheet>
+				<ScriptFillsByProfit  style="position: relative; height:40vh; width:100%"/>
 			</v-flex>
-			<v-flex xs2 justify-center class="graph-sheet text-xs-center">
-                <v-flex>
-                    <h4>% of Total Script Fills with Profit in Timeframe</h4>
-                    <v-btn flat small outline color="success">1</v-btn>                    
-                </v-flex>
-                <v-flex>
-                    <h4>% of Total Script Fills with Loss in Timeframe</h4>
-                    <v-btn flat small outline color="error">1</v-btn>                    
-                </v-flex>
-			</v-flex>            
 		</v-layout>
+		<v-layout row xs12 justify-center class="graph-sheet text-xs-center mb-2">
+			<v-flex xs6>
+				<h4>% of Total Script Fills with Profit in Timeframe</h4>
+				<v-btn flat small outline color="success">1</v-btn>                    
+			</v-flex>
+			<v-flex xs6>
+				<h4>% of Total Script Fills with Loss in Timeframe</h4>
+				<v-btn flat small outline color="error">1</v-btn>                    
+			</v-flex>
+		</v-layout>		
         <v-layout row align-center justify-center>
             <v-flex xs6 class="mr-2 table-layout">
                 <h2>Top 10 Drugs by Gross Profit</h2>
@@ -75,9 +73,6 @@ export default {
 	components: {
 		ScriptFillsByProfit
 	},
-	mounted() {
-		this.$refs.chart.render();
-    },
 	data () {
 		return {
 			selectedTimeframe: null,
@@ -93,8 +88,9 @@ export default {
                 { text: 'Profit', value: 'profit', sortable: true, align: 'center' },
                 { text: 'N', value: 'n', sortable: true, align: 'center' },
                 { text: 'Profit Per Fill', value: 'profitPerFill', sortable: true, align: 'center' }
-			],            
-            items: []
+			],
+			items: [],
+			mounted: false
 		}
 	},
 	computed: {
@@ -117,21 +113,22 @@ export default {
 	padding: 0px 0px;
 }
 .graph-sheet {
-	border: 1px solid #1C2B32;
-	padding: 5px 5px;
+	border: 1px solid black;
+	padding: 10px 10px;
 }
 .calendar-layout {
-	border: 1px solid #1C2B32;
+	border: 1px solid black;
 	padding: 5px 5px;
 }
 .graph-layout {
 	padding: 10px 0px!important;
 }
+.table-layout {
+	border: 1px solid black;
+    padding: 5px 5px!important;
+}
 .date-picker {
 	margin: 10px 0px 0px 0px;
-}
-.table-layout {
-	border: 1px solid #1C2B32;
-    padding: 5px 5px!important;
+	border: 1px solid black;
 }
 </style>

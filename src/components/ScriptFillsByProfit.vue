@@ -4,14 +4,7 @@ import { Bar } from "vue-chartjs"
 export default {
 	extends: Bar,
 	mounted() {
-        console.log("fillsbyprofitmounted")
-		this.renderChart(this.datacollection, this.options)
-    },
-    methods: {
-        render() {
-            console.log('rerender')
-            this.renderChart(this.datacollection, this.options)
-        }
+        this.renderChart(this.datacollection, this.options)
     },
 	data () {
 		return {
