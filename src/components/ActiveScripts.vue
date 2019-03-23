@@ -21,7 +21,6 @@
                         <td class="text-xs-center">{{ item.numberOfRefillsRemaining }}</td>
                         <td class="text-xs-center">{{ item.numberOfFills }}</td>
                         <td class="text-xs-center">{{ item.totalProfit }}</td>
-                        </td>
                     </template>
                 </v-data-table>          
             </v-flex>

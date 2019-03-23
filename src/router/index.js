@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Unauthorized from '@/components/Unauthorized';
 import Home from '@/components/Home';
 import Admin from '@/components/Admin';
 import PharmacyAnalytics from '@/components/PharmacyAnalytics';
-import Unauthorized from '@/components/Unauthorized';
 import Auth from '@okta/okta-vue';
+import Analytics from '@/components/Analytics';
+import ActiveScripts from '@/components/ActiveScripts';
+import ProfitLossAnalytics from '@/components/ProfitLossAnalytics';
 
 Vue.use(Auth, {
 	issuer: 'https://dev-866259.oktapreview.com/oauth2/default',
@@ -36,8 +39,31 @@ let router = new Router({
 			name: 'PharmacyAnalytics',
 			component: PharmacyAnalytics,
 			meta: {
-				requiresAuth: true,
-				adminOnly: true
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/analytics',
+			name: 'Analytics',
+			component: Analytics,
+			meta: {
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/activescripts',
+			name: 'ActiveScripts',
+			component: ActiveScripts,
+			meta: {
+				requiresAuth: true
+			}
+		},
+		{
+			path: '/profitlossanalytics',
+			name: 'ProfitLossAnalytics',
+			component: ProfitLossAnalytics,
+			meta: {
+				requiresAuth: true
 			}
 		},
 		{

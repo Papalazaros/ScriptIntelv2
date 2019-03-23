@@ -32,28 +32,28 @@
           <router-link to="/"><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="green" @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
+      <v-btn flat color="success" outline @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
       <v-menu v-if="activeUser" >        
         <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="#E1E4E3">person</v-icon></v-btn>
         <v-list class="navigation">
           <v-layout column justify-center align-center>
-            <v-list-tile v-for="item in user_menu" :to="item.to" :key="item.title">
+            <v-list-tile class="user-menu-list" v-for="item in user_menu" :to="item.to" :key="item.title">
               <v-list-tile-content>
-                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                <v-list-tile-title class="text-xs-center">{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile v-if="this.activeUser.isAdmin" to="/admin">
+            <v-list-tile class="user-menu-list" v-if="this.activeUser.isAdmin" to="/admin">
               <v-list-tile-content>
-                <v-list-tile-title>Admin</v-list-tile-title>
+                <v-list-tile-title class="text-xs-center">Admin</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile to="/">
-              <v-list-tile-content v-if="activeUser" color="red" @click.prevent="logout">
-                <v-list-tile-title class="logout">Logout</v-list-tile-title>
+            <v-list-tile class="user-menu-list-logout" to="/">
+              <v-list-tile-content v-if="activeUser" @click.prevent="logout">
+                <v-list-tile-title class="text-xs-center">Logout</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-layout>
-        </v-list>        
+        </v-list>
       </v-menu>
     </v-toolbar>
     <v-content>
@@ -146,12 +146,6 @@ export default {
 }
 </script>
 <style>
-.v-menu__content {
-  width: 125px !important;
-}
-.login {
-  color: #4CAF50;
-}
 .logout {
   color: red;
 }
@@ -195,6 +189,22 @@ export default {
   text-decoration: none;
   padding: 0px 15px;
   color: #E1E4E3;
-  border-left: solid 10px #E1E4E3;
+  border-left: solid 5px #E1E4E3;
+}
+.v-list__tile--active .v-list__tile__title {
+  text-decoration: none;
+  color: #E1E4E3;
+}
+.user-menu-list, .user-menu-list-logout {
+  width: 100px;  
+}
+.v-list__tile:hover {
+  padding: 0px 10px;
+}
+.user-menu-list:hover, .user-menu-list-logout:hover {
+  background-color: black;
+}
+.user-menu-list .v-list__tile--active {
+  border-left: solid 5px #E1E4E3;
 }
 </style>

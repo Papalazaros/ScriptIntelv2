@@ -42,18 +42,18 @@
 						:show-month-on-first=false
 					>
 					<template v-slot:day="{ present, past, date }">
-						<v-layout>
+						<v-layout row align-center>
 							<v-flex class="text-xs-center">
-								<u><v-icon color="black">account_box</v-icon></u>
-								<br></br>
+								<v-icon small color="black">account_box</v-icon>
+								<br>
 								<h4>10</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
 								<h4>x</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<u><v-icon color="success">monetization_on</v-icon></u>
-								<br></br>
+								<v-icon small color="success">monetization_on</v-icon>
+								<br>
 								<h4>$15</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
@@ -82,9 +82,9 @@
 							</v-icon>
 						</v-btn>
 						<v-spacer></v-spacer>
-						<h3><v-icon class="mx-2">info</v-icon>Total Fill Count</h3>
-						<h3><v-icon class="mx-2">info</v-icon>Total Gross Profit</h3>
-						<h3><v-icon class="mx-2">info</v-icon>Average Profit Per Script Fill</h3>			
+						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Fill Count</h3>
+						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Gross Profit</h3>
+						<h3><v-icon color="black" class="mx-2">info</v-icon>Average Profit Per Script Fill</h3>			
 					</v-flex>
 				</v-sheet>
 			</v-flex>

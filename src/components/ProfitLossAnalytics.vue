@@ -20,7 +20,7 @@
 			<v-flex xs10 class="graph-sheet mr-2">
 				<h2>% of Script Fills by Profit and Loss</h2>
 				<v-sheet height="400" width="100%">
-					<NumberOfScriptFills/>					
+					<ScriptFillsByProfit ref="form"/>				
 				</v-sheet>
 			</v-flex>
 			<v-flex xs2 justify-center class="graph-sheet text-xs-center">
@@ -37,31 +37,29 @@
         <v-layout row align-center justify-center>
             <v-flex xs6 class="mr-2 table-layout">
                 <h2>Top 10 Drugs by Gross Profit</h2>
-                <v-data-table :headers="headers" :items="items" item-key="userId" hide-actions>
+                <v-data-table :headers="drugProfitHeaders" :items="items" item-key="drugName" hide-actions>
                     <template slot="headerCell" slot-scope="{ header }">
                         <span class="subheading" v-text="header.text"/>
                     </template>
                     <template slot="items" slot-scope="{ item }">
                         <td class="text-xs-center">{{ item.drugName }}</td>
-                        <td class="text-xs-center">{{ item.barProfit }}</td>
+                        <td class="text-xs-center">{{ item.profit }}</td>
                         <td class="text-xs-center">{{ item.n }}</td>
                         <td class="text-xs-center">{{ item.profitPerFill }}</td>
-                        </td>
                     </template>
                 </v-data-table>          
             </v-flex>
             <v-flex xs6 class="table-layout">
-                <h2>Top 10 Drugs by Gross Profit</h2>
-                <v-data-table :headers="headers" :items="items" item-key="userId" hide-actions>
+                <h2>Top 10 Prescribers by Gross Profit</h2>
+                <v-data-table :headers="prescriberProfitHeaders" :items="items" item-key="prescriber" hide-actions>
                     <template slot="headerCell" slot-scope="{ header }">
                         <span class="subheading" v-text="header.text"/>
                     </template>
                     <template slot="items" slot-scope="{ item }">
                         <td class="text-xs-center">{{ item.prescriber }}</td>
-                        <td class="text-xs-center">{{ item.barProfit }}</td>
+                        <td class="text-xs-center">{{ item.profit }}</td>
                         <td class="text-xs-center">{{ item.n }}</td>
                         <td class="text-xs-center">{{ item.profitPerFill }}</td>
-                        </td>
                     </template>
                 </v-data-table>          
             </v-flex>            
@@ -71,22 +69,28 @@
 
 <script>
 import moment from 'moment';
-import NumberOfScriptFills from './NumberOfScriptFills'
+import ScriptFillsByProfit from './ScriptFillsByProfit'
 
 export default {
 	components: {
-		NumberOfScriptFills
-	},	
+		ScriptFillsByProfit
+	},
 	data () {
 		return {
 			selectedTimeframe: null,
 			now: null,
-			headers: [
+			drugProfitHeaders: [
                 { text: 'Drug Name', value: 'drugName', sortable: true, align: 'center' },
-                { text: 'Bar/Profit', value: 'prescriber', sortable: true, align: 'center' },
+                { text: 'Profit', value: 'profit', sortable: true, align: 'center' },
                 { text: 'N', value: 'n', sortable: true, align: 'center' },
                 { text: 'Profit Per Fill', value: 'profitPerFill', sortable: true, align: 'center' }
 			],
+			prescriberProfitHeaders: [
+                { text: 'Prescriber', value: 'prescriber', sortable: true, align: 'center' },
+                { text: 'Profit', value: 'profit', sortable: true, align: 'center' },
+                { text: 'N', value: 'n', sortable: true, align: 'center' },
+                { text: 'Profit Per Fill', value: 'profitPerFill', sortable: true, align: 'center' }
+			],            
             items: []
 		}
 	},
@@ -94,7 +98,7 @@ export default {
 		currentMonth() {			
 			if (this.now == null) {
 				return moment(this.start).format('MMMM');
-			}
+			}			
 			return moment(this.now).format('MMMM');
 		}
 	}
