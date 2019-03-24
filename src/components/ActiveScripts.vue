@@ -47,14 +47,6 @@ export default {
 			],
             items: []
 		}
-    },
-    methods: {
-		editItem(item) {			
-            console.log(item);
-		},
-		deleteItem(item) {
-			console.log(item);
-		}        
     }
 }
 </script>
@@ -72,6 +64,5 @@ export default {
 }
 .table-layout {
 	border: 1px solid black;
-    padding: 5px 5px!important;
 }
 </style>

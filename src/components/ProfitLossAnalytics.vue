@@ -22,15 +22,35 @@
 				<ScriptFillsByProfit  style="position: relative; height:40vh; width:100%"/>
 			</v-flex>
 		</v-layout>
-		<v-layout row xs12 justify-center class="graph-sheet text-xs-center mb-2">
-			<v-flex xs6>
-				<h2>% of Total Script Fills with Profit</h2>
-				<v-btn flat small outline color="success">1</v-btn>                    
-			</v-flex>
-			<v-flex xs6>
+		<v-layout row xs12 justify-center class="graph-sheet text-xs-center mb-2">			
+			<v-layout xs6 align-center column>
+				<h2>Total Script Fills with Profit</h2>
+				<v-spacer></v-spacer>
+				<v-flex d-flex>
+					<v-flex>
+						<h3>%</h3>
+						<v-btn flat small outline color="success">100</v-btn>
+					</v-flex>
+					<v-flex>
+						<h3>#</h3>
+						<v-btn flat small outline color="success">1</v-btn>
+					</v-flex>
+				</v-flex>
+			</v-layout>
+			<v-layout xs6 align-center column>
 				<h2>% of Total Script Fills with Loss</h2>
-				<v-btn flat small outline color="error">1</v-btn>                    
-			</v-flex>
+				<v-spacer></v-spacer>
+				<v-flex d-flex>
+					<v-flex>
+						<h3>%</h3>
+						<v-btn flat small outline color="error">100</v-btn>
+					</v-flex>
+					<v-flex>
+						<h3>#</h3>
+						<v-btn flat small outline color="error">1</v-btn>
+					</v-flex>
+				</v-flex>
+			</v-layout>			
 		</v-layout>
         <v-layout row align-center justify-center>
             <v-flex xs6 class="mr-2 table-layout text-xs-center">
@@ -114,18 +134,12 @@ export default {
 }
 .graph-sheet {
 	border: 1px solid black;
-	padding: 10px 10px;
-}
-.calendar-layout {
-	border: 1px solid black;
-	padding: 5px 5px;
 }
 .graph-layout {
-	padding: 10px 0px!important;
+	margin: 10px 0px!important;
 }
 .table-layout {
 	border: 1px solid black;
-    padding: 5px 5px!important;
 }
 .date-picker {
 	margin: 10px 0px 0px 0px;

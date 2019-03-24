@@ -22,7 +22,6 @@
 				<v-sheet>
 					<NumberOfScriptFills style="position: relative; height:40vh; width:100%"/>
 				</v-sheet>
-				
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
 				<h2>Gross Profit per Script Fill</h2>
@@ -40,7 +39,7 @@
 								keyboard_arrow_left
 							</v-icon>
 						</v-btn>
-						<h2 class="text-xs-center">{{ currentMonth }}</h2>
+						<h2 class="calender-month text-xs-center">{{ currentMonth }}</h2>
 						<v-btn small flat @click="$refs.calendar.next()">
 							<v-icon>
 								keyboard_arrow_right
@@ -82,9 +81,9 @@
 					</template>
 					</v-calendar>
 					<v-flex class="text-xs-center mt-2">						
-						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Fill Count</h3>
-						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Gross Profit</h3>
-						<h3><v-icon color="black" class="mx-2">info</v-icon>Average Profit Per Script Fill</h3>			
+						<h3>Total Fill Count:<span class="ml-1">50</span></h3>
+						<h3>Total Gross Profit:<span class="ml-1">$500</span></h3>
+						<h3>Average Profit Per Script Fill:<span class="ml-1">$10</span></h3>
 					</v-flex>
 				</v-sheet>
 			</v-flex>
@@ -129,11 +128,10 @@ export default {
 }
 .graph-sheet {
 	border: 1px solid black;
-	padding: 10px 10px;
 }
 .calendar-layout {
 	border: 1px solid black;
-	padding: 5px 5px;
+	padding: 0px 5px;
 }
 .graph-layout {
 	padding: 10px 0px!important;
@@ -141,5 +139,8 @@ export default {
 .date-picker {
 	margin: 10px 0px 0px 0px;
 	border: 1px solid black;
+}
+.calender-month {
+	width: 100px;
 }
 </style>

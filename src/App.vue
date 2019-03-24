@@ -28,7 +28,7 @@
     </v-navigation-drawer>
     <v-toolbar app clipped-left>
       <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer"><v-icon color="#E1E4E3">menu</v-icon></v-toolbar-side-icon>
-        <v-toolbar-title class="ml-3 mr-5 title-text">
+        <v-toolbar-title class="title-text">
           <router-link to="/"><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
