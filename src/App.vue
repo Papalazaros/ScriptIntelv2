@@ -3,7 +3,7 @@
     <v-navigation-drawer width="225px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
       <v-list class="navigation">
         <template v-for="heading in headings">
-          <v-layout row class="navigation-row">
+          <v-layout row :key="heading.title" class="navigation-row">
             <v-flex xs12>
               <v-list-tile :to="heading.to">
                 <v-list-tile-content class="main-heading-row">
@@ -197,9 +197,6 @@ export default {
 }
 .user-menu-list, .user-menu-list-logout {
   width: 100px;  
-}
-.v-list__tile:hover {
-  padding: 0px 10px;
 }
 .user-menu-list:hover, .user-menu-list-logout:hover {
   background-color: black;

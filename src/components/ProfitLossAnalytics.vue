@@ -24,16 +24,16 @@
 		</v-layout>
 		<v-layout row xs12 justify-center class="graph-sheet text-xs-center mb-2">
 			<v-flex xs6>
-				<h4>% of Total Script Fills with Profit in Timeframe</h4>
+				<h2>% of Total Script Fills with Profit</h2>
 				<v-btn flat small outline color="success">1</v-btn>                    
 			</v-flex>
 			<v-flex xs6>
-				<h4>% of Total Script Fills with Loss in Timeframe</h4>
+				<h2>% of Total Script Fills with Loss</h2>
 				<v-btn flat small outline color="error">1</v-btn>                    
 			</v-flex>
-		</v-layout>		
+		</v-layout>
         <v-layout row align-center justify-center>
-            <v-flex xs6 class="mr-2 table-layout">
+            <v-flex xs6 class="mr-2 table-layout text-xs-center">
                 <h2>Top 10 Drugs by Gross Profit</h2>
                 <v-data-table :headers="drugProfitHeaders" :items="items" item-key="drugName" hide-actions>
                     <template slot="headerCell" slot-scope="{ header }">
@@ -45,9 +45,9 @@
                         <td class="text-xs-center">{{ item.n }}</td>
                         <td class="text-xs-center">{{ item.profitPerFill }}</td>
                     </template>
-                </v-data-table>          
+                </v-data-table>
             </v-flex>
-            <v-flex xs6 class="table-layout">
+            <v-flex xs6 class="table-layout text-xs-center">
                 <h2>Top 10 Prescribers by Gross Profit</h2>
                 <v-data-table :headers="prescriberProfitHeaders" :items="items" item-key="prescriber" hide-actions>
                     <template slot="headerCell" slot-scope="{ header }">

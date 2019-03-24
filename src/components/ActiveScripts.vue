@@ -1,8 +1,5 @@
 <template>
     <v-container fluid>
-        <v-layout justify-start>
-            <h2>Active Scripts</h2>
-        </v-layout>
         <v-layout row align-center justify-center class="table-layout">
             <v-flex xs12>
                 <v-data-table :headers="headers" :items="items" item-key="userId" hide-actions>

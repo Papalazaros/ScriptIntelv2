@@ -2,22 +2,12 @@
     <v-container fluid>
         <v-layout row justify-end>
           <v-tabs centered grow color="#1C2B32" dark slider-color="#E1E4E3" v-model="activeTab">
-            <v-tab ripple>Analytics</v-tab>
-              <v-tab-item>
-                <v-card flat><Analytics v-if="activeTab==0"/></v-card>
+            <template v-for="(page, index) in pages">
+              <v-tab ripple :key="page.name">{{page.name}}</v-tab>
+              <v-tab-item :key="page.name">
+                <v-card flat :is="page.component" v-if="activeTab==index"></v-card>
               </v-tab-item>
-            <v-tab ripple>Profit/Loss Analytics</v-tab>
-              <v-tab-item>
-                <v-card flat><ProfitLossAnalytics v-if="activeTab==1"/></v-card>
-              </v-tab-item>
-            <v-tab ripple>Active Scripts</v-tab>
-              <v-tab-item>
-                <v-card flat><ActiveScripts v-if="activeTab==2"/></v-card>
-              </v-tab-item>
-            <v-tab ripple >Preferred Scripts</v-tab>
-              <v-tab-item>
-                <v-card flat></v-card>
-              </v-tab-item>
+            </template>
           </v-tabs>
         </v-layout>
     </v-container>  
@@ -25,18 +15,24 @@
 
 <script>
 import Analytics from './Analytics'
-import ActiveScripts from './ActiveScripts'
 import ProfitLossAnalytics from './ProfitLossAnalytics'
+import ActiveScripts from './ActiveScripts'
 
 export default {
   components: {
     Analytics,
-    ActiveScripts,
-    ProfitLossAnalytics
+    ProfitLossAnalytics,
+    ActiveScripts
   },
 	data () {
 		return {
-      activeTab: 0
+      activeTab: 0,
+      pages: [
+        {name: 'Analytics', component: Analytics},
+        {name: 'Profit/Loss Analytics', component: ProfitLossAnalytics},
+        {name: 'Active Scripts', component: ActiveScripts},
+        {name: 'Preferred Scripts', component: null}
+      ]
     }
   }  
 }

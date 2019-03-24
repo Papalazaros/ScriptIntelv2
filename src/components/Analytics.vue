@@ -19,22 +19,34 @@
 		<v-layout row justify-center align-center class="text-xs-center graph-layout">
 			<v-flex xs6 class="graph-sheet mr-2">
 				<h2># of Scripts Fills</h2>
-				<v-sheet height="400" width="100%">
+				<v-sheet>
 					<NumberOfScriptFills style="position: relative; height:40vh; width:100%"/>
 				</v-sheet>
 				
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
 				<h2>Gross Profit per Script Fill</h2>
-				<v-sheet height="400" width="100%">
+				<v-sheet>
 					<GrossProfitPerScriptFill style="position: relative; height:40vh; width:100%"/>					
 				</v-sheet>
 			</v-flex>
 		</v-layout>
 		<v-layout row align-center justify-center>
 			<v-flex xs12>
-				<v-sheet min-height="500" class="calendar-layout">
-					<h2 class="text-xs-center">{{ currentMonth }}</h2>
+				<v-sheet class="calendar-layout">
+					<v-layout row align-center justify-center class="text-xs-center">
+						<v-btn small flat @click="$refs.calendar.prev()">
+							<v-icon>
+								keyboard_arrow_left
+							</v-icon>
+						</v-btn>
+						<h2 class="text-xs-center">{{ currentMonth }}</h2>
+						<v-btn small flat @click="$refs.calendar.next()">
+							<v-icon>
+								keyboard_arrow_right
+							</v-icon>
+						</v-btn>
+					</v-layout>
 					<v-calendar
 						ref="calendar"
 						type="month"
@@ -69,20 +81,7 @@
 						</v-layout>
 					</template>
 					</v-calendar>
-					<v-flex class="text-xs-center">
-						<v-btn class="my-3" @click="$refs.calendar.prev()">
-							<v-icon dark left>
-								keyboard_arrow_left
-							</v-icon>
-							Prev
-						</v-btn>
-						<v-btn class="my-3" @click="$refs.calendar.next()">
-							Next
-							<v-icon right dark>
-								keyboard_arrow_right
-							</v-icon>
-						</v-btn>
-						<v-spacer></v-spacer>
+					<v-flex class="text-xs-center mt-2">						
 						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Fill Count</h3>
 						<h3><v-icon color="black" class="mx-2">info</v-icon>Total Gross Profit</h3>
 						<h3><v-icon color="black" class="mx-2">info</v-icon>Average Profit Per Script Fill</h3>			
