@@ -1,14 +1,11 @@
 <template>
-<v-layout justify-center align-center>
-  <div>
-      <p><b>HTTP Error 403 - Unauthorized</b></p>
-      <p>Sorry, you do not have the authorization required to view this page.</p>
-      <br>
-      <br>
-      <br>
+  <v-container fill-height>
+    <v-layout column justify-center align-center class="text-xs-center">
+      <h1><b>HTTP Error 403 - Unauthorized</b></h1>
+      <h2>Sorry, you do not have the authorization required to view this page.</h2>
       <v-btn class="return-button" to="/">Return to Home</v-btn>
-  </div>
-</v-layout>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -17,10 +14,6 @@ export default {
 </script>
 
 <style scoped>
-div {
-    text-align: center;
-    font-size: 50px;
-}
 .return-button {
     background-color: #1C2B32!important;
     color: #E1E4E3!important;

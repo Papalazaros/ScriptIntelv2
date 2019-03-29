@@ -27,14 +27,14 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar app clipped-left>
-      <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer"><v-icon color="#E1E4E3">menu</v-icon></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer"><v-icon color="white">menu</v-icon></v-toolbar-side-icon>
         <v-toolbar-title class="title-text">
           <router-link to="/"><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat color="success" outline @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
+      <v-btn color="success" @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
       <v-menu v-if="activeUser" >        
-        <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="#E1E4E3">person</v-icon></v-btn>
+        <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="white">person</v-icon></v-btn>
         <v-list class="navigation">
           <v-layout column justify-center align-center>
             <v-list-tile class="user-menu-list" v-for="item in user_menu" :to="item.to" :key="item.title">
@@ -151,22 +151,22 @@ export default {
 }
 .v-toolbar {
   background-color: #1C2B32!important;
-  color: #E1E4E3!important;
+  color: white!important;
 }
 .profile-btn {
   width: 50px;
   height: 50px;
 }
 .navigation {
-  color: #E1E4E3!important;
+  color: white!important;
   background-color: #1C2B32!important;
   padding: 0px 0px;
   margin: 0px 0px;
 }
 .navigation-row {
   margin: 10px 10px;
-  border-top: solid 1px #E1E4E3;
-  border-bottom: solid 1px #E1E4E3;
+  border-top: solid 1px white;
+  border-bottom: solid 1px white;
 }
 .main-heading {
   font-size: 16px;
@@ -177,7 +177,7 @@ export default {
 }
 .title-text a {
   text-decoration: none;
-  color: #E1E4E3;
+  color: white;
 }
 .container {
   padding: 5px 5px;
@@ -188,12 +188,12 @@ export default {
 .v-list__tile--active .main-heading-row {
   text-decoration: none;
   padding: 0px 15px;
-  color: #E1E4E3;
-  border-left: solid 5px #E1E4E3;
+  color: white;
+  border-left: solid 5px white;
 }
 .v-list__tile--active .v-list__tile__title {
   text-decoration: none;
-  color: #E1E4E3;
+  color: white;
 }
 .user-menu-list, .user-menu-list-logout {
   width: 100px;  
@@ -202,6 +202,6 @@ export default {
   background-color: black;
 }
 .user-menu-list .v-list__tile--active {
-  border-left: solid 5px #E1E4E3;
+  border-left: solid 5px white;
 }
 </style>
