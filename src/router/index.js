@@ -70,9 +70,8 @@ const checkRoute = async (to, from, next) => {
 		} else {
 			next();
 		}
-	} else {
-		next();
 	}
+	next();
 };
 
 router.beforeEach(checkRoute);
