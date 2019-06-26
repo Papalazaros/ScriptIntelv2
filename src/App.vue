@@ -1,6 +1,6 @@
 <template>
   <v-app>    
-    <v-navigation-drawer width="225px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
+    <v-navigation-drawer width="250px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
       <v-list class="navigation">
         <template v-for="heading in headings">
           <v-layout row :key="heading.title" class="navigation-row">
@@ -35,7 +35,7 @@
       <v-btn flat color="success" outline @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
       <v-menu v-if="activeUser" >        
         <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="#E1E4E3">person</v-icon></v-btn>
-        <v-list class="navigation">
+        <v-list class="navigation user-menu">
           <v-layout column justify-center align-center>
             <v-list-tile class="user-menu-list" v-for="item in user_menu" :to="item.to" :key="item.title">
               <v-list-tile-content>
@@ -49,7 +49,7 @@
             </v-list-tile>
             <v-list-tile class="user-menu-list-logout" to="/">
               <v-list-tile-content v-if="activeUser" @click.prevent="logout">
-                <v-list-tile-title class="text-xs-center">Logout</v-list-tile-title>
+                <v-list-tile-title class="text-xs-center logout">Logout</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-layout>
@@ -80,7 +80,7 @@ export default {
         },
         {
           title: "Pharmacy Comparison",
-          to: "",
+          to: "/pharmacycomparison",
           subHeadings: []
         },        
         {
@@ -146,8 +146,11 @@ export default {
 }
 </script>
 <style>
+.container {
+  padding: 5px 5px;
+}
 .logout {
-  color: red;
+  color: red!important;
 }
 .v-toolbar {
   background-color: #1C2B32!important;
@@ -161,7 +164,6 @@ export default {
   color: #E1E4E3!important;
   background-color: #1C2B32!important;
   padding: 0px 0px;
-  margin: 0px 0px;
 }
 .navigation-row {
   margin: 10px 10px;
@@ -171,37 +173,37 @@ export default {
 .main-heading {
   font-size: 16px;
 }
-.sub-heading {
-  margin: 0px 0px 0px 10px;
-  font-style: italic;
+.sub-content {
+  margin: 0px 0px 0px 15px;
+  border-top: solid 1px #E1E4E3;
 }
 .title-text a {
   text-decoration: none;
   color: #E1E4E3;
 }
-.container {
-  padding: 5px 5px;
+.user-menu {
+  border: solid 2.5px #E1E4E3;
+}
+.user-menu-list, .user-menu-list-logout {
+  width: 175px;
 }
 .v-list__tile {
   padding: 0px 0px;
 }
-.v-list__tile--active .main-heading-row {
+.v-list__tile--active .v-list__tile__title {
+  color: black!important;
+}
+.v-list__tile--active, .v-list__tile--active .v-list__tile__title {
   text-decoration: none;
   padding: 0px 15px;
-  color: #E1E4E3;
-  border-left: solid 5px #E1E4E3;
+  color: black;
+  background-color: #E1E4E3;
 }
-.v-list__tile--active .v-list__tile__title {
-  text-decoration: none;
-  color: #E1E4E3;
+.v-list__tile--link:hover {
+  color: black;
+  background-color: #E1E4E3!important;
 }
-.user-menu-list, .user-menu-list-logout {
-  width: 100px;  
-}
-.user-menu-list:hover, .user-menu-list-logout:hover {
-  background-color: black;
-}
-.user-menu-list .v-list__tile--active {
-  border-left: solid 5px #E1E4E3;
+.v-list__tile--link:hover:not(.v-list__tile--active) {
+  padding: 0px 10px;
 }
 </style>

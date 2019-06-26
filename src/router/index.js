@@ -4,6 +4,7 @@ import Unauthorized from '@/components/Unauthorized';
 import Home from '@/components/Home';
 import Admin from '@/components/Admin';
 import PharmacyAnalytics from '@/components/PharmacyAnalytics';
+import PharmacyComparison from '@/components/PharmacyComparison';
 import Auth from '@okta/okta-vue';
 
 Vue.use(Auth, {
@@ -39,6 +40,14 @@ let router = new Router({
 				requiresAuth: true
 			}
 		},
+		{
+			path: '/pharmacycomparison',
+			name: 'PharmacyComparison',
+			component: PharmacyComparison,
+			meta: {
+				requiresAuth: true
+			}
+		},		
 		{
 			path: '/unauthorized',
 			name: 'Unauthorized',
