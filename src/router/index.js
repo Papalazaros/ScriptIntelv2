@@ -5,6 +5,7 @@ import Home from '@/components/Home';
 import Admin from '@/components/Admin';
 import PharmacyAnalytics from '@/components/PharmacyAnalytics';
 import PharmacyComparison from '@/components/PharmacyComparison';
+import ClassExplorer from '@/components/ClassExplorer';
 import Auth from '@okta/okta-vue';
 
 Vue.use(Auth, {
@@ -47,7 +48,15 @@ let router = new Router({
 			meta: {
 				requiresAuth: true
 			}
-		},		
+		},
+		{
+			path: '/classexplorer',
+			name: 'ClassExplorer',
+			component: ClassExplorer,
+			meta: {
+				requiresAuth: true
+			}
+		},			
 		{
 			path: '/unauthorized',
 			name: 'Unauthorized',

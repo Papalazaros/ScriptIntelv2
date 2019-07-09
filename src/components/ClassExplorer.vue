@@ -17,7 +17,6 @@
                   label="From Date"
                   prepend-icon="event"
                   v-on="on"
-                  readonly
                 ></v-text-field>
               </template>
               <v-date-picker v-model="fromDate" no-title scrollable>
@@ -43,13 +42,12 @@
                   label="To Date"
                   prepend-icon="event"
                   v-on="on"
-                  readonly
                 ></v-text-field>
               </template>
               <v-date-picker v-model="toDate" no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn flat color="primary" @click="toMenu = false">Cancel</v-btn>
-                <v-btn flat color="primary" @click="$refs.toMenu.save(toDate);dipatchUpdate()">OK</v-btn>
+                <v-btn flat color="primary" @click="$refs.toMenu.save(toDate)">OK</v-btn>
               </v-date-picker>
             </v-menu>
           </v-flex>
@@ -57,55 +55,37 @@
         <v-layout>
           <v-flex xs12>
             <v-select
-              v-model="selectedIds"
-              :items="pharmacies"
-              item-text="pharmacyUniqueKey"
-              item-value="pharmacyId"
-              label="Pharmacies"
+              v-model="select"
+              :items="pharmaClasses"
+              item-text="pharmaClass"
+              item-value="pharmacyClassId"
+              label="Pharma Classes"
               multiple
               chips
               hide-details
             ></v-select>            
           </v-flex>
         </v-layout>
-        <PharmacyComparisonChart :selectedIds="selectedIds"/>
     </v-container>
 </template>
 
 <script>
-import PharmacyComparisonChart from './PharmacyComparisonChart'
-
 export default {
 	async mounted() {
-		this.$store.dispatch('updatePharmacies');
-  },
-	computed: {
-		pharmacies() {
-			return this.$store.getters.pharmacies;
-		}
-  },
-  watch: {
-    selectedIds: function(val) {
-      this.dipatchUpdate();
-    }
-  },
-	components: {
-		PharmacyComparisonChart
-  },
-  methods: {
-    dipatchUpdate() {
-      this.$store.dispatch('updatePharmacyDetails', {selectedIds: this.selectedIds, fromDate: this.fromDate, toDate: this.toDate});
-    }
-  },
+    },
 	data () {
-		return {
-      fromMenu: false,
-      toMenu: false,
-      fromDate: '2000-01-01',
-      toDate: new Date().toISOString().substr(0, 10),
-      selectedIds: []
-    }
-  }  
+        return {
+            fromMenu: false,
+            toMenu: false,
+            fromDate: new Date().toISOString().substr(0, 10),
+            toDate: new Date().toISOString().substr(0, 10),
+            select: [],
+            pharmaClasses: [{
+                pharmaClassId: 7372,
+                pharmaClass: "Radioactive Diagnostic Agent [EPC]"
+            }]
+        }
+    }  
 }
 </script>
 

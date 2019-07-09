@@ -85,7 +85,7 @@ export default {
         },        
         {
           title: "SI Class Explorer",
-          to: "",
+          to: "classexplorer",
           subHeadings: []
         },
         {

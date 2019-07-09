@@ -21,7 +21,7 @@
 export default {
 	async mounted() {
 		this.$store.dispatch('updateUsers');
-	},		
+	},
 	data () {
 		return {
 			search: '',

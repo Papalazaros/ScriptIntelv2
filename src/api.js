@@ -8,12 +8,13 @@ const client = axios.create({
 });
 
 export default {
-  async execute (method, resource, data) {
+  async execute (method, resource, params, data) {
     let accessToken = await Vue.prototype.$auth.getAccessToken();    
     return client({
       method,
       url: resource,
       data,
+      params,
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
@@ -24,6 +25,17 @@ export default {
   getUsers () {
     return this.execute('get', '/Users');
   },
+  getPharmacies () {
+    return this.execute('get', '/Pharmacies');
+  },
+  getPharmacyDetails (selectedIds, fromDate, toDate) {
+    const params = {
+      selectedIds,
+      fromDate,
+      toDate
+    };
+    return this.execute('get', '/Pharmacies/detail', params);
+  },
   async createUser (data) {
     return this.execute('post', '/Users', data).then(() => store.dispatch('updateUsers'));
   },
@@ -32,5 +44,5 @@ export default {
   },
   async updateUser (id, data) {
     return this.execute('put', '/Users/' + id, data).then(() => store.dispatch('updateUsers'));
-  }
+  },
 };
