@@ -25,17 +25,16 @@ export default {
   getUsers () {
     return this.execute('get', '/Users');
   },
-  getPharmacies () {
-    return this.execute('get', '/Pharmacies');
-  },
-  getPharmacyDetails (selectedIds, fromDate, toDate) {
+  getPharmacies (fromDate, toDate) {
     const params = {
-      selectedIds,
       fromDate,
       toDate
     };
-    return this.execute('get', '/Pharmacies/detail', params);
+    return this.execute('get', '/Pharmacies', params);
   },
+  getPharmacies () {
+    return this.execute('get', '/Pharmacies');
+  },  
   async createUser (data) {
     return this.execute('post', '/Users', data).then(() => store.dispatch('updateUsers'));
   },

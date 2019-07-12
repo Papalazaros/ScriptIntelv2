@@ -94,7 +94,7 @@ export default {
   },
   methods: {
     dipatchUpdate() {
-      this.$store.dispatch('updatePharmacyDetails', {selectedIds: this.selectedIds, fromDate: this.fromDate, toDate: this.toDate});
+      this.$store.dispatch('updatePharmacies', {fromDate: this.fromDate, toDate: this.toDate});
     }
   },
 	data () {

@@ -71,23 +71,6 @@ export default {
 		pharmacies() {
 			var self = this;
 			return this.$store.getters.pharmacies.filter(pharmacy => self.selectedIds.includes(pharmacy.pharmacyId));
-		},
-		pharmacyDetails() {
-			var self = this;
-			return this.$store.getters.pharmacyDetails.filter(pharmacy => self.selectedIds.includes(pharmacy.pharmacyId));
-		},
-		pharmaciesWithDetails() {
-			var self = this;
-			this.pharmacies.forEach(function(pharmacy) {
-				var pharmacyDetails = self.pharmacyDetails.find(function (pharmacyDetail) { return pharmacyDetail.pharmacyId == pharmacy.pharmacyId })
-				if (pharmacyDetails) {
-					pharmacy.pharmacyDetails = pharmacyDetails
-				}
-				else {
-					pharmacy.pharmacyDetails = { totalFills: null, grossProfit: null }
-				}
-			});
-			return this.pharmacies;
 		}
 	},
 	data () {
