@@ -20,6 +20,9 @@ export default {
       }
     }).then(req => {
       return req.data;
+    }).catch(error => {
+      store.commit('addError', error)
+      setTimeout(() => store.commit('removeError'), 5000);
     });
   },
   getUsers () {
@@ -32,8 +35,14 @@ export default {
     };
     return this.execute('get', '/Pharmacies', params);
   },
-  getPharmacies () {
-    return this.execute('get', '/Pharmacies');
+  getPharmaClasses () {
+    return this.execute('get', '/PharmaClasses');
+  },
+  getScriptFills () {
+    return this.execute('get', '/ScriptFills');
+  },
+  getScripts () {
+    return this.execute('get', '/Scripts');
   },  
   async createUser (data) {
     return this.execute('post', '/Users', data).then(() => store.dispatch('updateUsers'));

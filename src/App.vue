@@ -56,15 +56,21 @@
         </v-list>
       </v-menu>
     </v-toolbar>
-    <v-content>
+    <ErrorNotifier class="error-notifier"/>
+    <v-content>      
       <router-view />
     </v-content>
   </v-app>
 </template>
 
 <script>
+import ErrorNotifier from './components/ErrorNotifier'
+
 export default {
   name: 'App',
+  components: {
+    ErrorNotifier
+  },
   data () {
     return {
       drawer: null,
@@ -146,6 +152,13 @@ export default {
 }
 </script>
 <style>
+.error-notifier {
+  position: absolute;
+  z-index: 9;
+  height: 50px;
+  right: 75px;
+  pointer-events: none;
+}
 .container {
   padding: 5px 5px;
 }

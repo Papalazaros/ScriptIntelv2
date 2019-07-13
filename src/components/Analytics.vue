@@ -1,21 +1,5 @@
 <template>
 	<v-container fluid>
-		<v-layout row align-center justify-center>
-			<v-btn-toggle v-model="selectedTimeframe" mandatory class="date-picker">
-				<v-btn flat>
-					Day
-				</v-btn>
-				<v-btn flat>
-					Week
-				</v-btn>
-				<v-btn flat>
-					Month
-				</v-btn>
-				<v-btn flat>
-					Year
-				</v-btn>
-			</v-btn-toggle>
-		</v-layout>
 		<v-layout row justify-center align-center class="text-xs-center graph-layout">
 			<v-flex xs6 class="graph-sheet mr-2">
 				<h2># of Scripts Fills</h2>
@@ -81,7 +65,7 @@
 					</template>
 					</v-calendar>
 					<v-flex class="text-xs-center mt-2">						
-						<h3>Total Fill Count:<span class="ml-1">50</span></h3>
+						<h3>Total Fill Count:<span class="ml-1">{{ scriptFillsInDateRange.length }}</span></h3>
 						<h3>Total Gross Profit:<span class="ml-1">$500</span></h3>
 						<h3>Average Profit Per Script Fill:<span class="ml-1">$10</span></h3>
 					</v-flex>
@@ -101,9 +85,11 @@ export default {
 		GrossProfitPerScriptFill,
 		NumberOfScriptFills
 	},
+  	props: {
+		startDate: Date
+  	},
 	data () {
 		return {
-			selectedTimeframe: null,
 			now: null
 		}
 	},
@@ -113,8 +99,15 @@ export default {
 				return moment(this.start).format('MMMM');
 			}
 			return moment(this.now).format('MMMM');
+		},
+		scriptFills() {
+			return this.$store.getters.scriptFills;
+		},
+		scriptFillsInDateRange() {
+			var self = this;
+			return this.$store.getters.scriptFills.filter(scriptFill => new Date(scriptFill.fillDate) >= self.startDate)
 		}
-	}
+	},
 }
 </script>
 

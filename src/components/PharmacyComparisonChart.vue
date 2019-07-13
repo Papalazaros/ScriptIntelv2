@@ -44,7 +44,7 @@
 	<br></br>
 	<v-data-table
 		:headers="headers"
-		:items="pharmaciesWithDetails"
+		:items="pharmacies"
 		class="elevation-1"
 	>
 	<template slot="headerCell" slot-scope="{ header }">
@@ -52,8 +52,8 @@
 	</template>
 	<template slot="items" slot-scope="{ item }">
 	  <td class="text-xs-center">{{ item.pharmacyName }}</td>
-	  <td class="text-xs-center">{{ item.pharmacyDetails.totalFills }}</td>
-	  <td class="text-xs-center">{{ item.pharmacyDetails.grossProfit }}</td>
+	  <td class="text-xs-center">{{ item.totalFills }}</td>
+	  <td class="text-xs-center">{{ item.grossProfit }}</td>
 	</template>
   </v-data-table>
   </v-container>
@@ -77,8 +77,8 @@ export default {
 		return {
 			headers: [
 				{ text: 'Pharmacy Name', value: 'pharmacyName', sortable: true, align: 'center' },
-				{ text: 'Total Fills', value: 'pharmacyDetails.totalFills', sortable: true, align: 'center' },
-				{ text: 'Gross Profit', value: 'pharmacyDetails.grossProfit', sortable: true, align: 'center' }
+				{ text: 'Total Fills', value: 'totalFills', sortable: true, align: 'center' },
+				{ text: 'Gross Profit', value: 'grossProfit', sortable: true, align: 'center' }
 			],
 		}
 	}

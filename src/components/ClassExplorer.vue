@@ -54,7 +54,7 @@
         </v-layout>
         <v-layout>
           <v-flex xs12>
-            <v-select
+            <v-combobox
               v-model="select"
               :items="pharmaClasses"
               item-text="pharmaClass"
@@ -63,7 +63,7 @@
               multiple
               chips
               hide-details
-            ></v-select>            
+            ></v-combobox>            
           </v-flex>
         </v-layout>
     </v-container>
@@ -72,18 +72,20 @@
 <script>
 export default {
 	async mounted() {
-    },
+		this.$store.dispatch('updatePharmaClasses');
+  },
+	computed: {
+		pharmaClasses() {
+			return this.$store.getters.pharmaClasses;
+		}
+  },  
 	data () {
         return {
             fromMenu: false,
             toMenu: false,
             fromDate: new Date().toISOString().substr(0, 10),
             toDate: new Date().toISOString().substr(0, 10),
-            select: [],
-            pharmaClasses: [{
-                pharmaClassId: 7372,
-                pharmaClass: "Radioactive Diagnostic Agent [EPC]"
-            }]
+            select: []
         }
     }  
 }

@@ -1,21 +1,5 @@
 <template>
 	<v-container fluid>
-		<v-layout row align-center justify-center>
-			<v-btn-toggle v-model="selectedTimeframe" mandatory class="date-picker">
-				<v-btn flat>
-					Day
-				</v-btn>
-				<v-btn flat>
-					Week
-				</v-btn>
-				<v-btn flat>
-					Month
-				</v-btn>
-				<v-btn flat>
-					Year
-				</v-btn>
-			</v-btn-toggle>
-		</v-layout>
 		<v-layout row justify-center align-center class="text-xs-center graph-layout">
 			<v-flex xs12 class="graph-sheet">
 				<h2>% of Script Fills by Profit and Loss</h2>
@@ -86,7 +70,6 @@
 </template>
 
 <script>
-import moment from 'moment';
 import ScriptFillsByProfit from './ScriptFillsByProfit'
 
 export default {
@@ -111,14 +94,6 @@ export default {
 			],
 			items: [],
 			mounted: false
-		}
-	},
-	computed: {
-		currentMonth() {			
-			if (this.now == null) {
-				return moment(this.start).format('MMMM');
-			}			
-			return moment(this.now).format('MMMM');
 		}
 	}
 }
