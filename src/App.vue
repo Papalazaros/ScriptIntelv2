@@ -3,7 +3,7 @@
     <v-navigation-drawer width="250px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
       <v-list class="navigation">
         <template v-for="heading in headings">
-          <v-layout row :key="heading.title" class="navigation-row">
+          <v-layout row :key="heading.to" class="navigation-row">
             <v-flex xs12>
               <v-list-tile :to="heading.to" exact>
                 <v-list-tile-content class="main-heading-row">
@@ -12,8 +12,8 @@
                   </v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>              
-              <template v-for="subHeading in heading.subHeadings">
-                <v-list-tile :to="subHeading.to" exact :key="subHeading.title" class="sub-heading">
+              <template v-if="heading.subHeadings" v-for="subHeading in heading.subHeadings">
+                <v-list-tile :to="subHeading.to" exact :key="subHeading.id" class="sub-heading">
                   <v-list-tile-content class="sub-content">
                     <v-list-tile-title class="sub-heading">
                       {{ subHeading.title }}
@@ -37,7 +37,7 @@
         <v-btn class="profile-btn" flat fab slot="activator"><v-icon color="#E1E4E3">person</v-icon></v-btn>
         <v-list class="navigation user-menu">
           <v-layout column justify-center align-center>
-            <v-list-tile class="user-menu-list" v-for="item in user_menu" :to="item.to" :key="item.title">
+            <v-list-tile class="user-menu-list" v-for="item in user_menu" :to="item.to" :key="item.to">
               <v-list-tile-content>
                 <v-list-tile-title class="text-xs-center">{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -72,8 +72,10 @@ export default {
   components: {
     ErrorNotifier
   },
-  async mounted() {
-    this.$store.dispatch('updatePharmaciesForSelection');
+  computed : {
+    pharmaciesForSelection() {
+      return this.$store.getters.pharmaciesForSelection;
+    }
   },
   data () {
     return {
@@ -86,27 +88,27 @@ export default {
         {
           title: "Pharmacy Analytics",
           to: "/pharmacyanalytics",
-          subHeadings: this.$store.getters.pharmaciesForSelection.map(pharmacy => ({ title: pharmacy.pharmacyName, to: "/pharmacyanalytics/" + pharmacy.pharmacyId }))
+          subHeadings: null
         },
         {
           title: "Pharmacy Comparison",
           to: "/pharmacycomparison",
-          subHeadings: []
+          subHeadings: null
         },        
         {
           title: "SI Class Explorer",
           to: "/classexplorer",
-          subHeadings: []
+          subHeadings: null
         },
         {
           title: "Optimization Plans",
-          to: "",
-          subHeadings: []
+          to: "opt",
+          subHeadings: null
         },                
         {
           title: "Pharmacies",
-          to: "",
-          subHeadings: []
+          to: "pha",
+          subHeadings: null
         }
       ],
       activeUser: null
@@ -117,7 +119,10 @@ export default {
     await this.refreshActiveUser()
   },
   watch: {
-    '$route': 'refreshActiveUser'
+    '$route': 'refreshActiveUser',
+    pharmaciesForSelection: function (val) {
+      this.headings[0].subHeadings = val.map(pharmacy => ({ id: pharmacy.pharmacyId, title: pharmacy.pharmacyName, to: "/pharmacyanalytics/" + pharmacy.pharmacyId }))
+    }
   },
   methods: {
     login () {

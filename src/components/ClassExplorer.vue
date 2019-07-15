@@ -60,7 +60,6 @@
               item-text="pharmaClass"
               item-value="pharmacyClassId"
               label="Pharma Classes"
-              chips
               hide-details
             ></v-combobox>            
           </v-flex>
