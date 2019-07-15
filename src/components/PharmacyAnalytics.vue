@@ -21,7 +21,7 @@
                     </v-btn>
                   </v-btn-toggle>
                 </v-layout>
-                <v-card :is="page.component" :startDate="startDate"></v-card>
+                <v-card :is="page.component" :scriptFillsInDateRange="scriptFillsInDateRange" :graphLabels="graphLabelsFromSelectedTimeframe" :startDate="startDateFromSelectedTimeframe"></v-card>
               </v-tab-item>
             </template>
           </v-tabs>
@@ -37,14 +37,23 @@ import moment from 'moment';
 
 export default {
   async mounted() {
-    this.$store.dispatch('updateScriptFills');
-    this.$store.dispatch('updateScripts');
+    this.$store.dispatch('updateScriptFills', this.pharmacyId);
+    this.$store.dispatch('updateScripts', this.pharmacyId);
+    this.$store.dispatch('updateProfitByPrescriber', { fromDate: this.startDateFromSelectedTimeframe, pharmacyId: this.pharmacyId });
+    this.$store.dispatch('updateProfitByDrug', { fromDate: this.startDateFromSelectedTimeframe, pharmacyId: this.pharmacyId });
   },
   watch: {
     selectedTimeframe: function (val) {
-      this.startDate = this.startDateFromSelectedTimeframe();
+      this.$store.dispatch('updateProfitByPrescriber', { fromDate: this.startDateFromSelectedTimeframe, pharmacyId: this.pharmacyId });
+      this.$store.dispatch('updateProfitByDrug', { fromDate: this.startDateFromSelectedTimeframe, pharmacyId: this.pharmacyId });
     }
   },
+	props: {
+    pharmacyId: {
+      type: String,
+      default: null
+    },
+	},
   components: {
     Analytics,
     ProfitLossAnalytics,
@@ -58,11 +67,27 @@ export default {
         { name: 'Active Scripts', component: ActiveScripts },
         { name: 'Preferred Scripts', component: null }
       ],
-      selectedTimeframe: 0,
-      startDate: this.startDateFromSelectedTimeframe()
+      selectedTimeframe: 0
     }
   },
-	methods: {
+  computed: {
+		scriptFillsInDateRange() {
+      var self = this;
+			return this.$store.getters.scriptFills.filter(scriptFill => new Date(scriptFill.fillDate) >= self.startDateFromSelectedTimeframe);
+		},    
+		graphLabelsFromSelectedTimeframe() {
+			switch(this.selectedTimeframe) {
+				case 0:
+          return { type: "day", labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], display: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23] }
+				case 1:
+          return { type: "week", labels: [0, 1, 2, 3, 4, 5, 6], display: ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"] }
+				case 2:
+          var labels = Array.apply(null, { length: moment().daysInMonth() }).map(Number.call, Number)
+          return { type: "month", labels, display: labels }
+				case 3:
+          return { type: "year", labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], display: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]}
+      }
+    },
 		startDateFromSelectedTimeframe() {
       var date = moment().utc();
 			switch(this.selectedTimeframe) {
@@ -83,8 +108,29 @@ export default {
           break;
       }
 			return date.toDate();
-		}
-	}  
+    },
+		startDateFromSelectedTimeframe() {
+      var date = moment().utc();
+			switch(this.selectedTimeframe) {
+				case 0:
+          date.subtract(1, 'd');
+          break;
+				case 1:
+          date.subtract(7, 'd');
+          break;
+				case 2:
+          date.subtract(30, 'd');
+          break;
+				case 3:
+          date.subtract(365, 'd');								
+          break;
+				default:
+          date.subtract(7, 'd');
+          break;
+      }
+			return date.toDate();
+    }    
+  }
 }
 </script>
 <style scoped>

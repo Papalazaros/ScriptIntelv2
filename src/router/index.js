@@ -50,6 +50,15 @@ let router = new Router({
 			}
 		},
 		{
+			path: '/pharmacyanalytics/:pharmacyId',
+			name: 'PharmacyAnalytics',
+			component: PharmacyAnalytics,
+			props: true,
+			meta: {
+				requiresAuth: true
+			}
+		},		
+		{
 			path: '/classexplorer',
 			name: 'ClassExplorer',
 			component: ClassExplorer,
@@ -71,7 +80,6 @@ let router = new Router({
 
 const checkRoute = async (to, from, next) => {
 	Vue.prototype.$auth.authRedirectGuard();
-
 	if (to.meta.adminOnly) {
 		var user = await Vue.prototype.$auth.getUser();
 		if (!user || !user.isAdmin) {

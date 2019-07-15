@@ -60,7 +60,6 @@
               item-text="pharmaClass"
               item-value="pharmacyClassId"
               label="Pharma Classes"
-              multiple
               chips
               hide-details
             ></v-combobox>            

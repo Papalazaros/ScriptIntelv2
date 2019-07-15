@@ -11,7 +11,10 @@ export const store = new Vuex.Store({
         errors: [],
         pharmaClasses: [],
         scriptFills: [],
-        scripts: []
+        scripts: [],
+        profitByPrescriber: [],
+        profitByDrug: [],
+        pharmaciesForSelection: []
     },
     getters: {
         users(state) {
@@ -31,6 +34,15 @@ export const store = new Vuex.Store({
         },
         scripts(state) {
             return state.scripts;
+        },
+        profitByPrescriber(state) {
+            return state.profitByPrescriber;
+        },
+        profitByDrug(state) {
+            return state.profitByDrug;
+        },
+        pharmaciesForSelection(state) {
+            return state.pharmaciesForSelection;
         }        
     },
     mutations: {
@@ -49,6 +61,15 @@ export const store = new Vuex.Store({
         setScripts (state, scripts) {
             Vue.set(state, 'scripts', scripts);
         },
+        setProfitByPrescriber (state, profitByPrescriber) {
+            Vue.set(state, 'profitByPrescriber', profitByPrescriber);
+        },
+        setProfitByDrug (state, profitByDrug) {
+            Vue.set(state, 'profitByDrug', profitByDrug);
+        },
+        setPharmaciesForSelection (state, pharmaciesForSelection) {
+            Vue.set(state, 'pharmaciesForSelection', pharmaciesForSelection);
+        },        
         addError (state, error) {
             state.errors.unshift(error);
         },
@@ -65,13 +86,25 @@ export const store = new Vuex.Store({
             var pharmaClasses = await api.getPharmaClasses();
             state.commit('setPharmaClasses', pharmaClasses);
         },
-        async updateScriptFills(state) {
-            var scriptFills = await api.getScriptFills();
+        async updateScriptFills(state, pharmacyId) {
+            var scriptFills = await api.getScriptFills(pharmacyId);
             state.commit('setScriptFills', scriptFills);
         },
-        async updateScripts(state) {
-            var scripts = await api.getScripts();
+        async updateScripts(state, pharmacyId) {
+            var scripts = await api.getScripts(pharmacyId);
             state.commit('setScripts', scripts);
+        },
+        async updateProfitByPrescriber(state, data) {
+            var profitByPrescriber = await api.getProfitByPrescriber(data.fromDate, data.pharmacyId);
+            state.commit('setProfitByPrescriber', profitByPrescriber);
+        },
+        async updateProfitByDrug(state, data) {
+            var profitByDrug = await api.getProfitByDrug(data.fromDate, data.pharmacyId);
+            state.commit('setProfitByDrug', profitByDrug);
+        },
+        async updatePharmaciesForSelection(state) {
+            var pharmaciesForSelection = await api.getPharmaciesForSelection();
+            state.commit('setPharmaciesForSelection', pharmaciesForSelection);
         },        
         async updatePharmacies(state, data) {
             var pharmacies = null;

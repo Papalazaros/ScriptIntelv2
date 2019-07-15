@@ -5,7 +5,7 @@
         <template v-for="heading in headings">
           <v-layout row :key="heading.title" class="navigation-row">
             <v-flex xs12>
-              <v-list-tile :to="heading.to">
+              <v-list-tile :to="heading.to" exact>
                 <v-list-tile-content class="main-heading-row">
                   <v-list-tile-title class="main-heading">
                     {{ heading.title }}
@@ -13,7 +13,7 @@
                 </v-list-tile-content>
               </v-list-tile>              
               <template v-for="subHeading in heading.subHeadings">
-                <v-list-tile :to="subHeading.to" :key="subHeading.title" class="sub-heading">
+                <v-list-tile :to="subHeading.to" exact :key="subHeading.title" class="sub-heading">
                   <v-list-tile-content class="sub-content">
                     <v-list-tile-title class="sub-heading">
                       {{ subHeading.title }}
@@ -29,7 +29,7 @@
     <v-toolbar app clipped-left>
       <v-toolbar-side-icon v-if="activeUser" @click.native="drawer = !drawer"><v-icon color="white">menu</v-icon></v-toolbar-side-icon>
         <v-toolbar-title class="title-text">
-          <router-link to="/"><span>ScriptIntel</span></router-link>
+          <router-link to="/" exact><span>ScriptIntel</span></router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="success" @click.prevent="login" v-if="!activeUser"><span>Login</span></v-btn>
@@ -58,18 +58,22 @@
     </v-toolbar>
     <ErrorNotifier class="error-notifier"/>
     <v-content>      
-      <router-view />
+      <router-view :key="$route.fullPath"/>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import api from '@/api';
 import ErrorNotifier from './components/ErrorNotifier'
 
 export default {
   name: 'App',
   components: {
     ErrorNotifier
+  },
+  async mounted() {
+    this.$store.dispatch('updatePharmaciesForSelection');
   },
   data () {
     return {
@@ -82,7 +86,7 @@ export default {
         {
           title: "Pharmacy Analytics",
           to: "/pharmacyanalytics",
-          subHeadings: []
+          subHeadings: this.$store.getters.pharmaciesForSelection.map(pharmacy => ({ title: pharmacy.pharmacyName, to: "/pharmacyanalytics/" + pharmacy.pharmacyId }))
         },
         {
           title: "Pharmacy Comparison",
@@ -91,7 +95,7 @@ export default {
         },        
         {
           title: "SI Class Explorer",
-          to: "classexplorer",
+          to: "/classexplorer",
           subHeadings: []
         },
         {
@@ -102,34 +106,14 @@ export default {
         {
           title: "Pharmacies",
           to: "",
-          subHeadings: [
-            {
-              title: 'Pharmacy #1',
-              to: ""
-            },
-            {
-              title: 'Pharmacy #2',
-              to: ""
-            },
-            {
-              title: 'Pharmacy #3',
-              to: ""
-            },
-            {
-              title: 'Pharmacy #4',
-              to: ""
-            },
-            {
-              title: 'Pharmacy #5',
-              to: ""
-            }                        
-          ]
+          subHeadings: []
         }
       ],
       activeUser: null
     }
   },
   async created () {
+    this.$store.dispatch('updatePharmaciesForSelection');
     await this.refreshActiveUser()
   },
   watch: {

@@ -4,13 +4,13 @@
 			<v-flex xs6 class="graph-sheet mr-2">
 				<h2># of Scripts Fills</h2>
 				<v-sheet>
-					<NumberOfScriptFills style="position: relative; height:40vh; width:100%"/>
+					<NumberOfScriptFills :scriptFillsInDateRange="scriptFillsInDateRange" :graphLabels="graphLabels" style="position: relative; height:40vh; width:100%"/>
 				</v-sheet>
 			</v-flex>
 			<v-flex xs6 class="graph-sheet">
 				<h2>Gross Profit per Script Fill</h2>
 				<v-sheet>
-					<GrossProfitPerScriptFill style="position: relative; height:40vh; width:100%"/>					
+					<GrossProfitPerScriptFill :scriptFillsInDateRange="scriptFillsInDateRange" :graphLabels="graphLabels" style="position: relative; height:40vh; width:100%"/>					
 				</v-sheet>
 			</v-flex>
 		</v-layout>
@@ -37,37 +37,25 @@
 						v-model="now"
 						:show-month-on-first=false
 					>
-					<template v-slot:day="{ present, past, date }">
-						<v-layout row align-center>
+					<template v-slot:day="{ date }">
+						<v-layout row align-center v-if="date in scriptFillsInCalendar">
 							<v-flex class="text-xs-center">
 								<v-icon small color="black">account_box</v-icon>
 								<br>
-								<h4>10</h4>
+								<h4>{{ scriptFillsInCalendar[date].fillQuantity }}</h4>
 							</v-flex>
 							<v-flex class="text-xs-center">
-								<h4>x</h4>
-							</v-flex>
-							<v-flex class="text-xs-center">
-								<v-icon small color="success">monetization_on</v-icon>
+								<v-icon small color="black">monetization_on</v-icon>
 								<br>
-								<h4>$15</h4>
+								<h4>{{ scriptFillsInCalendar[date].profit }}</h4>
 							</v-flex>
-							<v-flex class="text-xs-center">
-								<h4>=</h4>
-							</v-flex>							
-							<v-flex class="text-xs-center">
-								<h4>$150</h4>
-							</v-flex>
-							<v-flex class="text-xs-center">
-								<v-icon color="red">keyboard_arrow_down</v-icon>
-							</v-flex>							
 						</v-layout>
 					</template>
 					</v-calendar>
 					<v-flex class="text-xs-center mt-2">						
-						<h3>Total Fill Count:<span class="ml-1">{{ scriptFillsInDateRange.length }}</span></h3>
-						<h3>Total Gross Profit:<span class="ml-1">$500</span></h3>
-						<h3>Average Profit Per Script Fill:<span class="ml-1">$10</span></h3>
+						<h3>Total Fill Count:<span class="ml-1">{{ totalProfitInMonth }}</span></h3>
+						<h3>Total Gross Profit:<span class="ml-1">{{ totalFillsInMonth }}</span></h3>
+						<h3>Average Profit Per Script Fill:<span class="ml-1">{{ totalProfitPerFill }}</span></h3>
 					</v-flex>
 				</v-sheet>
 			</v-flex>
@@ -86,7 +74,9 @@ export default {
 		NumberOfScriptFills
 	},
   	props: {
-		startDate: Date
+		startDate: Date,
+		graphLabels: Object,
+		scriptFillsInDateRange: Array
   	},
 	data () {
 		return {
@@ -96,16 +86,52 @@ export default {
 	computed: {
 		currentMonth() {			
 			if (this.now == null) {
-				return moment(this.start).format('MMMM');
+				return moment(this.start).local().format('MMMM');
 			}
-			return moment(this.now).format('MMMM');
+			return moment(this.now).local().format('MMMM');
 		},
 		scriptFills() {
 			return this.$store.getters.scriptFills;
 		},
-		scriptFillsInDateRange() {
+		currentCalendarValues() {
+			var currentCalenderValues = this.scriptFillsInCalendar;
+
+			var values = Object.keys(currentCalenderValues).map(function(key){
+				return currentCalenderValues[key];
+			});
+
+			return values;
+		},
+		totalProfitInMonth() {
+			return this.currentCalendarValues.reduce((a, b) => a + b.profit, 0)
+		},
+		totalFillsInMonth() {
+			return this.currentCalendarValues.reduce((a, b) => a + b.fillQuantity, 0)
+		},
+		totalProfitPerFill() {
+			if (!this.totalFillsInMonth) {
+				return 0;
+			}
+
+			return Math.round(this.totalProfitInMonth / this.totalFillsInMonth);
+		},
+		scriptFillsInCalendar() {
 			var self = this;
-			return this.$store.getters.scriptFills.filter(scriptFill => new Date(scriptFill.fillDate) >= self.startDate)
+			var scriptFillsInMonth = this.$store.getters.scriptFills.filter(scriptFill => moment(scriptFill.fillDate).local().format('MMMM') == self.currentMonth)
+			var uniqueDates = [...new Set(scriptFillsInMonth.map(scriptFill => moment(scriptFill.fillDate).local().format('YYYY-MM-DD')))];
+			var map = {}
+
+			uniqueDates.forEach(function(date) {
+				var scriptFillsInDate = scriptFillsInMonth.filter(scriptFill => moment(scriptFill.fillDate).local().format('YYYY-MM-DD') == date)
+
+				map[date] = {
+					date: date,
+					profit: scriptFillsInDate.reduce((a, b) => a + b.profit, 0),
+					fillQuantity: scriptFillsInDate.reduce((a, b) => a + b.fillQuantity, 0)
+				};
+			});
+
+			return map
 		}
 	},
 }

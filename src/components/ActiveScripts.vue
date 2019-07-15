@@ -8,11 +8,11 @@
                 <template slot="items" slot-scope="{ item }">
                     <td class="text-xs-center">{{ item.scriptNumber }}</td>
                     <td class="text-xs-center">{{ item.drugName }}</td>
-                    <td class="text-xs-center">{{ item.ndc }}</td>
+                    <td class="text-xs-center">{{ item.ndcpackageId }}</td>
                     <td class="text-xs-center">{{ item.substance }}</td>
-                    <td class="text-xs-center">{{ item.status }}</td>
-                    <td class="text-xs-center">{{ item.prescriber }}</td>
-                    <td class="text-xs-center">{{ item.dateWritten }}</td>
+                    <td class="text-xs-center">{{ item.scriptStatus }}</td>
+                    <td class="text-xs-center">{{ item.prescriberId }}</td>
+                    <td class="text-xs-center">{{ item.scriptWrittenDate | formatDate }}</td>
                     <td class="text-xs-center">{{ item.numberOfRefills }}</td>
                     <td class="text-xs-center">{{ item.numberOfRefillsRemaining }}</td>
                     <td class="text-xs-center">{{ item.numberOfFills }}</td>
@@ -33,18 +33,18 @@ export default {
     },
   	props: {
 		startDate: Date
-  	},    
+  	},
 	data () {
 		return {
 			search: '',
 			headers: [
 				{ text: 'Script Number', value: 'scriptNumber', sortable: true, align: 'center' },
                 { text: 'Drug Name', value: 'drugName', sortable: true, align: 'center' },
-                { text: 'NDC', value: 'ndc', sortable: true, align: 'center' },
+                { text: 'NDC', value: 'ndcpackageId', sortable: true, align: 'center' },
                 { text: 'Substance', value: 'substance', sortable: true, align: 'center' },
-                { text: 'Status', value: 'status', sortable: true, align: 'center' },
-                { text: 'Prescriber', value: 'prescriber', sortable: true, align: 'center' },
-                { text: 'Date Written', value: 'dateWritten', sortable: true, align: 'center' },
+                { text: 'Status', value: 'scriptStatus', sortable: true, align: 'center' },
+                { text: 'Prescriber', value: 'prescriberId', sortable: true, align: 'center' },
+                { text: 'Date Written', value: 'scriptWrittenDate', sortable: true, align: 'center' },
                 { text: '# of Refills', value: 'numberOfRefills', sortable: true, align: 'center' },
                 { text: '# of Refills Remaining', value: 'numberOfRefillsRemaining', sortable: true, align: 'center' },
                 { text: '# of Fills', value: 'numberOfFills', sortable: true, align: 'center' },

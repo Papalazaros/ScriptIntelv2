@@ -14,22 +14,6 @@
 			<v-list dense>
 			  <v-list-tile>
 				<v-flex xs6>
-					<v-list-tile-content class="align-center"><b>Id:</b></v-list-tile-content>
-				</v-flex>
-				<v-flex xs6>
-					<v-list-tile-content class="align-center">{{ props.item.pharmacyId }}</v-list-tile-content>
-				</v-flex>
-			  </v-list-tile>
-			  <v-list-tile>
-				<v-flex xs6>
-					<v-list-tile-content class="align-center"><b>Name:</b></v-list-tile-content>
-				</v-flex>
-				<v-flex xs6>
-					<v-list-tile-content class="align-center">{{ props.item.pharmacyName }}</v-list-tile-content>
-				</v-flex>
-			  </v-list-tile>
-			  <v-list-tile>
-				<v-flex xs6>
 					<v-list-tile-content class="align-center"><b>Location:</b></v-list-tile-content>
 				</v-flex>
 				<v-flex xs6>
@@ -46,6 +30,7 @@
 		:headers="headers"
 		:items="pharmacies"
 		class="elevation-1"
+		:rows-per-page-items="[10]"
 	>
 	<template slot="headerCell" slot-scope="{ header }">
 		<span class="subheading" v-text="header.text"/>

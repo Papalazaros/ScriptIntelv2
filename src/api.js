@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import {store} from './store';
+import { store } from './store';
 
 const client = axios.create({
   baseURL: 'https://localhost:44371/api/',
@@ -21,8 +21,12 @@ export default {
     }).then(req => {
       return req.data;
     }).catch(error => {
-      store.commit('addError', error)
-      setTimeout(() => store.commit('removeError'), 5000);
+      var errorString = error.toString();
+      if (!store.getters.errors.includes(errorString)) {
+        store.commit('addError', errorString);
+        setTimeout(() => store.commit('removeError'), 3500);
+      }
+      return [];
     });
   },
   getUsers () {
@@ -38,12 +42,29 @@ export default {
   getPharmaClasses () {
     return this.execute('get', '/PharmaClasses');
   },
-  getScriptFills () {
-    return this.execute('get', '/ScriptFills');
+  getScriptFills (pharmacyId) {
+    return this.execute('get', '/ScriptFills', { pharmacyId });
   },
-  getScripts () {
-    return this.execute('get', '/Scripts');
+  getScripts (pharmacyId) {
+    return this.execute('get', '/Scripts', { pharmacyId });
+  },
+  getPharmaciesForSelection () {
+    return this.execute('get', '/Pharmacies/GetPharmaciesForSelection');
   },  
+  getProfitByDrug (fromDate, pharmacyId) {
+    const params = {
+      fromDate,
+      pharmacyId
+    };
+    return this.execute('get', '/Scripts/GetProfitByDrug', params);
+  },  
+  getProfitByPrescriber (fromDate, pharmacyId) {
+    const params = {
+      fromDate,
+      pharmacyId
+    };
+    return this.execute('get', '/Scripts/GetProfitByPrescriber', params);
+  },
   async createUser (data) {
     return this.execute('post', '/Users', data).then(() => store.dispatch('updateUsers'));
   },

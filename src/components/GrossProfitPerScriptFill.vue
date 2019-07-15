@@ -1,10 +1,15 @@
 <script>
+import moment from 'moment';
 import { Line } from "vue-chartjs"
 
 export default {
 	extends: Line,
 	mounted() {
-		this.renderChart(this.datacollection, this.options)	
+		this.renderChart(this.datacollection, this.options)
+	},
+	props: {
+		graphLabels: Object,
+		scriptFillsInDateRange: Array
 	},
 	data () {
 		return {
@@ -39,44 +44,65 @@ export default {
 			}
 		}
 	},
+	watch: {
+		graphLabels: function () {
+			this.renderChart(this.datacollection, this.options)
+		}
+	},
+	methods: {
+		getDataset() {
+			var dataset = []
+			var self = this;
+
+			switch(this.graphLabels.type) {
+				case "day":					
+					this.graphLabels.labels.forEach(function(label) {
+						dataset.push(self.scriptFillsInDateRange.filter(scriptFill => moment(scriptFill.fillDate).local().toDate().getHours() == label).length).reduce((a, b) => a + b.profit, 0)
+					})
+					break;
+				case "week":
+					this.graphLabels.labels.forEach(function(label) {
+						dataset.push(self.scriptFillsInDateRange.filter(scriptFill => moment(scriptFill.fillDate).local().toDate().getDay() == label).reduce((a, b) => a + b.profit, 0))
+					})
+					break;
+				case "month":
+					this.graphLabels.labels.forEach(function(label) {
+						dataset.push(self.scriptFillsInDateRange.filter(scriptFill => moment(scriptFill.fillDate).local().toDate().getDate() - 1 == label).reduce((a, b) => a + b.profit, 0))
+					})
+					break;
+				case "year":
+					this.graphLabels.labels.forEach(function(label) {
+						dataset.push(self.scriptFillsInDateRange.filter(scriptFill => moment(scriptFill.fillDate).local().toDate().getMonth() == label).reduce((a, b) => a + b.profit, 0))
+					})
+					break;
+			}
+			return dataset;
+		}
+	},
 	computed: {
-		datacollection() {
-			var labels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Dec"]
-			var datasets = []
+		datacollection() {			
 			var randomColor = require('randomcolor');
 			var colorList = []
-			var scriptCount = 2
+			var datasets = []
+			var scriptIds = [...new Set(this.scriptFillsInDateRange.map(scriptFill => scriptFill.scriptId))]
 
-			for (var i = 0; i < scriptCount; i++) {
+			for (var i = 0; i < scriptIds.length; i++) {
 				var accentColor = randomColor({luminosity: 'dark', format: 'rgba', alpha: 0.1})
 				var color = accentColor.replace("0.1", "1.0")
-				colorList.push(color)
-				colorList.push(accentColor)				
+
+				datasets.push({
+					label: scriptIds[i],
+					data: this.getDataset(),
+					pointHoverBackgroundColor: color,
+					pointBackgroundColor: color,
+					borderColor: color,
+					backgroundColor: accentColor,
+					borderWidth: 2,
+					pointRadius: 5
+				});
 			}
 
-			datasets.push({
-				label: "Script 1",
-				data: [0, 1, 2, 3, 1, 2, 6, 12, 8, 5, 3, 11],
-				pointHoverBackgroundColor: colorList[0],
-				pointBackgroundColor: colorList[0],
-				borderColor: colorList[0],
-				backgroundColor: colorList[1],
-				borderWidth: 2,
-				pointRadius: 5,
-			})
-
-			datasets.push({
-				label: "Script 2",
-				data: [0, 3, 5, 3, 7, 5, 6, 7, 12, 9, 10, 11],
-				pointHoverBackgroundColor: colorList[2],
-				pointBackgroundColor: colorList[2],
-				borderColor: colorList[2],
-				backgroundColor: colorList[3],
-				borderWidth: 2,
-				pointRadius: 5,
-			})			
-
-			return {labels: labels, datasets: datasets}
+			return {labels: this.graphLabels.display, datasets: datasets}
 		}
 	}
 }
