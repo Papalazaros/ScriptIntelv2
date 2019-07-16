@@ -1,6 +1,6 @@
 <template>
   <v-app>    
-    <v-navigation-drawer width="250px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
+    <v-navigation-drawer width="350px" fixed clipped app class="navigation" v-model="drawer" v-if="activeUser">
       <v-list class="navigation">
         <template v-for="heading in headings">
           <v-layout row :key="heading.to" class="navigation-row">
@@ -115,13 +115,20 @@ export default {
     }
   },
   async created () {
-    this.$store.dispatch('updatePharmaciesForSelection');
     await this.refreshActiveUser()
   },
   watch: {
     '$route': 'refreshActiveUser',
     pharmaciesForSelection: function (val) {
       this.headings[0].subHeadings = val.map(pharmacy => ({ id: pharmacy.pharmacyId, title: pharmacy.pharmacyName, to: "/pharmacyanalytics/" + pharmacy.pharmacyId }))
+    },
+    activeUser (val) {
+      if (val && (!this.$store.getters.pharmaciesForSelection || this.$store.getters.pharmaciesForSelection.length == 0)) {
+        this.$store.dispatch('updatePharmaciesForSelection');
+      }
+      else if (!val) {
+        this.$store.dispatch('logout')
+      }
     }
   },
   methods: {
@@ -132,10 +139,9 @@ export default {
       this.activeUser = await this.$auth.getUser()
     },
     async logout () {
-      this.$store.replaceState({})
       await this.$auth.logout()
       await this.refreshActiveUser()
-      this.$router.push('/')
+      this.$router.push('/').then(() => this.$store.dispatch('logout'));
     }
   }
 }

@@ -46,6 +46,17 @@ export const store = new Vuex.Store({
         }        
     },
     mutations: {
+        logout (state) {
+            Vue.set(state, 'users', []);
+            Vue.set(state, 'pharmacies', []);
+            Vue.set(state, 'errors', []);
+            Vue.set(state, 'pharmaClasses', []);
+            Vue.set(state, 'scriptFills', []);
+            Vue.set(state, 'scripts', []);
+            Vue.set(state, 'profitByPrescriber', []);
+            Vue.set(state, 'profitByDrug', []);
+            Vue.set(state, 'pharmaciesForSelection', []);
+        },
         setUsers (state, users) {
             Vue.set(state, 'users', users);
         },
@@ -78,6 +89,9 @@ export const store = new Vuex.Store({
         }
     },
     actions : {
+        async logout(state) {
+            state.commit('logout');
+        },        
         async updateUsers(state) {
             var users = await api.getUsers();
             state.commit('setUsers', users);
