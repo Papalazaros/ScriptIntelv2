@@ -39,7 +39,7 @@
 		<v-layout row align-center justify-center>
 			<v-flex xs6 class="mr-2 table-layout text-xs-center">
 				<h2>Top 10 Drugs by Gross Profit</h2>
-				<v-data-table :headers="drugProfitHeaders" :items="profitByDrug" item-key="drugName" hide-actions>
+				<v-data-table :headers="drugProfitHeaders" :items="$store.getters.profitByDrug" item-key="drugName" hide-actions>
 					<template slot="headerCell" slot-scope="{ header }">
 						<span class="subheading" v-text="header.text"/>
 					</template>
@@ -52,7 +52,7 @@
 			</v-flex>
 			<v-flex xs6 class="table-layout text-xs-center">
 				<h2>Top 10 Prescribers by Gross Profit</h2>
-				<v-data-table :headers="prescriberProfitHeaders" :items="profitByPrescriber" item-key="prescriberId" hide-actions>
+				<v-data-table :headers="prescriberProfitHeaders" :items="$store.getters.profitByPrescriber" item-key="prescriberId" hide-actions>
 					<template slot="headerCell" slot-scope="{ header }">
 						<span class="subheading" v-text="header.text"/>
 					</template>
@@ -79,16 +79,6 @@ export default {
 		graphLabels: Object,
 		scriptFillsInDateRange: Array
 	},
-	computed: {
-		profitByDrug() {
-			var self = this;
-			return this.$store.getters.profitByDrug;
-		},
-		profitByPrescriber() {
-			var self = this;
-			return this.$store.getters.profitByPrescriber;
-		}
-	},	
 	data () {
 		return {
 			drugProfitHeaders: [
@@ -101,7 +91,6 @@ export default {
 				{ text: 'Profit', value: 'profit', sortable: true, align: 'center' },
 				{ text: 'Profit Per Fill', value: 'profitPerFill', sortable: true, align: 'center' }
 			],
-			mounted: false,
 			scriptFillStatistics: {
 				scriptFillsWithProfitAmount: 0,
 				scriptFillsWithProfitPercent: 0,
@@ -117,8 +106,6 @@ export default {
 	},
 	methods: {
 		getScriptFillStatistics() {
-			var self = this;
-
 			if (this.scriptFillsInDateRange.length == 0) {
 				this.scriptFillStatistics.scriptFillsWithProfitAmount = 0
 				this.scriptFillStatistics.scriptFillsWithProfitPercent = 0

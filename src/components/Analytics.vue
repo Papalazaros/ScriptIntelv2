@@ -73,21 +73,18 @@ export default {
 		GrossProfitPerScriptFill,
 		NumberOfScriptFills
 	},
-  	props: {
+	props: {
 		startDate: Date,
 		graphLabels: Object,
 		scriptFillsInDateRange: Array
-  	},
+	},
 	data () {
 		return {
-			now: null
+			now: moment().local().format('YYYY-MM-DD')
 		}
 	},
 	computed: {
 		currentMonth() {			
-			if (this.now == null) {
-				return moment(this.start).local().format('MMMM');
-			}
 			return moment(this.now).local().format('MMMM');
 		},
 		scriptFills() {
