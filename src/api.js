@@ -3,7 +3,8 @@ import axios from 'axios';
 import { store } from './store';
 
 const client = axios.create({
-  baseURL: 'https://localhost:44371/api/',
+  //baseURL: 'https://localhost:44371/api/',
+  baseURL: 'http://192.168.0.5:5000/api/',
   json: true
 });
 
