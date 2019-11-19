@@ -109,12 +109,6 @@ export default {
 					to: "opt",
 					subHeadings: null,
 					active: true
-				},                
-				{
-					title: "Pharmacies",
-					to: "pha",
-					subHeadings: null,
-					active: true
 				}
 			],
 			activeUser: null

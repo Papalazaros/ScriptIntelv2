@@ -10,15 +10,12 @@
 	  <template v-slot:item="props">
 		<v-flex xs12 md4 xl3>
 		  <v-card>
-			<v-card-title class="subheading font-weight-bold align-center text-xs-center justify-center">{{ props.item.pharmacyUniqueKey }}</v-card-title>
-			<v-list dense>
+			<v-card-title class="subheading font-weight-bold align-center justify-center">{{ props.item.pharmacyUniqueKey }}</v-card-title>
+			<v-list>
 			  <v-list-tile>
-				<v-flex xs6>
-					<v-list-tile-content class="align-center"><b>Location:</b></v-list-tile-content>
-				</v-flex>
-				<v-flex xs6>
-					<v-list-tile-content class="align-center">{{ props.item.city + ", " + props.item.state }}</v-list-tile-content>
-				</v-flex>
+				<v-layout align-center justify-center>
+					<span>Location: {{ props.item.city + ", " + props.item.state }}</span>
+				</v-layout>
 			  </v-list-tile>
 			</v-list>
 		  </v-card>

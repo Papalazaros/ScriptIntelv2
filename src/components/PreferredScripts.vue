@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid fill-height class="mt-2">
+    <v-container fluid fill-height class="mt-2" xs12>
         <v-layout row align-center justify-center>
             <v-data-table :headers="headers" :items="scripts" item-key="scriptId" :rows-per-page-items="[10]" class="elevation-1">
                 <template slot="headerCell" slot-scope="{ header }">

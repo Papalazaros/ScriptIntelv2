@@ -33,6 +33,7 @@
 import Analytics from './Analytics'
 import ProfitLossAnalytics from './ProfitLossAnalytics'
 import ActiveScripts from './ActiveScripts'
+import PreferredScripts from './PreferredScripts'
 import moment from 'moment';
 
 export default {
@@ -57,7 +58,8 @@ export default {
   components: {
     Analytics,
     ProfitLossAnalytics,
-    ActiveScripts
+    ActiveScripts,
+    PreferredScripts
   },
 	data () {
 		return {
@@ -65,7 +67,7 @@ export default {
         { name: 'Analytics', component: Analytics },
         { name: 'Profit/Loss Analytics', component: ProfitLossAnalytics },
         { name: 'Active Scripts', component: ActiveScripts },
-        { name: 'Preferred Scripts', component: null }
+        { name: 'Preferred Scripts', component: PreferredScripts }
       ],
       selectedTimeframe: 0
     }

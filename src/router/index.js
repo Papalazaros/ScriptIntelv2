@@ -51,7 +51,7 @@ let router = new Router({
 		},
 		{
 			path: '/pharmacyanalytics/:pharmacyId',
-			name: 'PharmacyAnalytics',
+			name: 'PharmacyAnalyticsByPharmacy',
 			component: PharmacyAnalytics,
 			props: true,
 			meta: {
